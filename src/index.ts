@@ -1,5 +1,5 @@
 import app from "./app.js";
-import connectDB from "./config/db.js";
+import { connectDB } from "./config/prisma.js";
 import dotenv from "dotenv";
 dotenv.config();
 
