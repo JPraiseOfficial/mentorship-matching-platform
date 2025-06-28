@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt, { JsonWebTokenError, JwtPayload } from "jsonwebtoken";
 import { env } from "../config/env.js";
 
-const auth = async (req: Request, res: Response, next: NextFunction) => {
+export const auth = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.jwtToken;
   if (!token) {
     return res.status(401).json({ message: "Unauthorized User" });
@@ -14,7 +14,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     next();
   } catch (error) {
     if (error instanceof JsonWebTokenError) {
-        res.status(401).json({ message: "Unauthorized" });
+        res.status(401).json({ message: "Unauthorized User" });
         return;
     }
     console.error("Error Logging in", error)
