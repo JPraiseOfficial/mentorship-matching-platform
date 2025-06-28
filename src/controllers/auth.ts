@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { createUser } from "../services/users.js";
-import { createUserDto } from "../dtos/user.dto.js";
+import { createUserDto, userLoginDto } from "../dtos/user.dto.js";
 import { z } from "zod";
 import { ResourceExistsError } from "../errors/customErrors.js";
 
@@ -20,6 +20,8 @@ export const register = async (req: Request, res: Response) => {
       return;
     }
     console.error("Error during user registration:", error);
-    res.status(500).json({ message: "Something went wrong. Please, try again later." });
+    res
+      .status(500)
+      .json({ message: "Something went wrong. Please, try again later." });
   }
 };

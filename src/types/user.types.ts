@@ -1,5 +1,5 @@
 export interface UserResponse {
-  id: string;
+  id: number;
   email: string;
-  role: 'mentor' | 'mentee' | 'admin';
+  role: 'Mentor' | 'Mentee' | 'Admin';
 };
