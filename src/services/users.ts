@@ -1,9 +1,10 @@
 import { prisma } from "../config/prisma.js";
 import bcrypt from "bcryptjs";
-import { UserResponse } from "../types/user.types.js";
+import { Role, UserResponse } from "../types/user.types.js";
 import { createUserDtoType } from "../dtos/user.dto.js";
-import { ResourceExistsError } from "../errors/customErrors.js";
+import { NotFoundError, ResourceExistsError } from "../errors/customErrors.js";
 
+// This function creates a new user
 export const createUser = async (
   data: createUserDtoType
 ): Promise<UserResponse> => {
@@ -22,7 +23,23 @@ export const createUser = async (
   const userdata: UserResponse = {
     id: user.id,
     email: user.email,
-    role: user.role as 'Mentor' | 'Mentee' | 'Admin',
+    role: user.role as Role,
   };
   return userdata;
 };
+
+// This function retrieves the currently authenticated user
+export const getUser = async (userId: number): Promise<UserResponse | null> => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+  if (!user) {
+    throw new NotFoundError("User not found");
+  }
+  const userResponse: UserResponse = {
+    id: user.id,
+    email: user.email,
+    role: user.role as Role,
+  };
+  return userResponse;
+}

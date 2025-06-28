@@ -8,7 +8,7 @@ import { env } from "../config/env";
 // Function to generate JWT token
 const generateJwtToken = (userId: number, role: string) => {
   const token = jwt.sign({ id: userId, role }, env.JWT_SECRET, {
-    expiresIn: "1d",
+    expiresIn: "1d"
   });
   return token;
 };
