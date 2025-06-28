@@ -58,3 +58,16 @@ export const login = async (req: Request, res: Response) => {
       .json({ message: "Something went wrong. Please, try again later." });
   }
 };
+
+export const logout = async (req: Request, res: Response) => {
+  try {
+    // Clear the JWT token cookie
+    res.clearCookie("jwtToken");
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.error("Error during user logout:", error);
+    res
+      .status(500)
+      .json({ message: "Something went wrong. Please, try again later." });
+  }
+}
