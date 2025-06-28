@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { userLoginDto } from "../dtos/user.dto";
-import { prisma } from "../config/prisma.js";
+import { userLoginDto } from "../../dtos/user.dto";
+import { prisma } from "../../config/prisma.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { env } from "../config/env";
+import { env } from "../../config/env";
 
 // Function to generate JWT token
 const generateJwtToken = (userId: number, role: string) => {
   const token = jwt.sign({ id: userId, role }, env.JWT_SECRET, {
-    expiresIn: "1d"
+    expiresIn: "1d",
   });
   return token;
 };
@@ -44,11 +44,11 @@ export const login = async (req: Request, res: Response) => {
     // Generate JWT token
     const token = generateJwtToken(user.id, user.role);
 
-    // Sends the token in a cookie 
-    res.cookie("jwtToken", token, { 
+    // Sends the token in a cookie
+    res.cookie("jwtToken", token, {
       httpOnly: true,
       secure: env.NODE_ENV === "production",
-      sameSite: "strict", 
+      sameSite: "strict",
     });
     res.status(200).json({ message: "Login successful" });
   } catch (error) {
@@ -70,4 +70,4 @@ export const logout = async (req: Request, res: Response) => {
       .status(500)
       .json({ message: "Something went wrong. Please, try again later." });
   }
-}
+};

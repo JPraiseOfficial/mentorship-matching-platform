@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
-import * as services from "../services/users.js";
-import { createUserDto, } from "../dtos/user.dto.js";
+import * as services from "../../services/auth.user.js";
+import { createUserDto } from "../../dtos/user.dto.js";
 import { z } from "zod";
-import { NotFoundError, ResourceExistsError } from "../errors/customErrors.js";
+import {
+  NotFoundError,
+  ResourceExistsError,
+} from "../../errors/customErrors.js";
 
 // Function to handle user registration
 export const register = async (req: Request, res: Response) => {
@@ -40,4 +43,4 @@ export const getUser = async (req: Request, res: Response) => {
     console.error("Error fetching user:", error);
     res.status(500).json({ message: "An unexpected error occurred" });
   }
-}
+};
