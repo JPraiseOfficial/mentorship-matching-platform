@@ -23,3 +23,7 @@ export const createProfileDto = z.object({
     goals: z.string().min(1, "Goals are required"),
 });
 export type createProfileDtoType = z.infer<typeof createProfileDto>;
+
+export const getUserProfileParams = z.object({
+    id: z.coerce.number({invalid_type_error: "ID must be a number"})
+});

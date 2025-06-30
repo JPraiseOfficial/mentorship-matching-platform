@@ -23,3 +23,7 @@ export interface UserProfile {
   skills: string;
   goals: string;
 }
+
+export interface fullUserProfile extends UserProfile {
+  role: string
+}
