@@ -46,3 +46,26 @@ export const getProfile = async (userId: number): Promise<fullUserProfile> => {
     }
     return profileData;
 }
+
+export const updateProfile = async (userId: number, data: createProfileDtoType): Promise<UserProfile> => {
+    const profile = await prisma.profile.findUnique({
+        where: { userId },
+    });
+    if (!profile) {
+        throw new NotFoundError("User has no profile!");
+    }
+
+    const updatedProfile = await prisma.profile.update({
+        where: { userId },
+        data: {
+            ...data,
+        }
+    });
+    const profileData = {
+        name: updatedProfile.name,
+        bio: updatedProfile.bio,
+        skills: updatedProfile.skills,
+        goals: updatedProfile.goals
+    }
+    return profileData;
+}

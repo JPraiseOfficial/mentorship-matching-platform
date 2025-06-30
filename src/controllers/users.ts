@@ -59,3 +59,25 @@ export const getAnyProfile = async (req: Request, res: Response) => {
         res.status(500).json({ message: "An unexpected error occurred. Please, try again later." });
     }
 }
+
+export const updateProfile = async (req: Request, res: Response) => {
+    const validate = createProfileDto.safeParse(req.body);
+    if (!validate.success) {
+        res.status(400).json({ errors: validate.error.issues });
+        return;
+    }
+
+    try {
+        const userId = req.user!.id;
+        const profileData = validate.data; // Use the validated data
+        const updatedProfile = await services.updateProfile(userId, profileData);
+        res.status(200).json({message: "User profile updated successfully", updatedProfile});
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            res.status(error.statusCode).json({message: error.message});
+            return;
+        }
+        console.error("Error updating profile:", error);
+        res.status(500).json({ message: "An unexpected error occurred" });
+    }
+};
