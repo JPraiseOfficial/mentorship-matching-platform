@@ -19,14 +19,25 @@ enum Role {
   Mentee
 }
 
+enum Day {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
+}
+
 model User {
-  id          Int       @id @default(autoincrement())
-  email       String    @unique
-  password    String
-  role        Role      @default(Mentee)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  profile     Profile?  
+  id            Int           @id @default(autoincrement())
+  email         String        @unique
+  password      String
+  role          Role          @default(Mentee)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  profile       Profile?      
+  availabilities  Availability[]
 }
 
 model Profile {
@@ -37,4 +48,13 @@ model Profile {
   goals     String
   userId    Int       @unique
   user      User      @relation(fields: [userId], references: [id])
+}
+
+model Availability {
+  id            Int       @id @default(autoincrement())
+  mentorId      Int
+  day           Day
+  startTime     String
+  endTime       String
+  user          User      @relation(fields: [mentorId], references: [id])
 }

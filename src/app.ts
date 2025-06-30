@@ -1,7 +1,10 @@
 import express from "express";
-import authRoutes from "./routes/auth.js";
 import cookieParser from "cookie-parser";
+
+// Importing routes
+import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
+import availabilityRoutes from "./routes/mentorAvailability.js";
 
 const app = express();
 
@@ -15,5 +18,6 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/availability", availabilityRoutes)
 
 export default app;

@@ -24,6 +24,17 @@ export const createProfileDto = z.object({
 });
 export type createProfileDtoType = z.infer<typeof createProfileDto>;
 
+// DTO for getting user profile by ID
+// This is used in the controller to validate the request parameters
 export const getUserProfileParams = z.object({
     id: z.coerce.number({invalid_type_error: "ID must be a number"})
 });
+
+
+// Mentor Availability DTO
+export const createAvailabilityDto = z.object({
+    day: z.enum(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]),
+    startTime: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, { message: "Time must be valid in HH:mm:ss format" }),
+    endTime: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, { message: "Time must be valid in HH:mm:ss format" }),
+});
+export type createAvailabilityDtoType = z.infer<typeof createAvailabilityDto>;
