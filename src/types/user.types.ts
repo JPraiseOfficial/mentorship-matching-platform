@@ -16,3 +16,10 @@ export interface MyJwtPayload extends JwtPayload {
   id: string;
   role: string;
 }
+
+export interface UserProfile {
+  name: string;
+  bio: string;
+  skills: string;
+  goals: string;
+}
