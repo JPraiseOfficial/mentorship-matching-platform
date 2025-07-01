@@ -29,6 +29,12 @@ enum Day {
   Sunday
 }
 
+enum RequestStatus {
+  Pending
+  Accepted
+  Rejected
+}
+
 model User {
   id            Int           @id @default(autoincrement())
   email         String        @unique
@@ -36,8 +42,12 @@ model User {
   role          Role          @default(Mentee)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
-  profile       Profile?      
-  availabilities  Availability[]
+
+  profile             Profile?      
+  availabilities      Availability[]
+  MentorRequests      MentorshipRequest[]   @relation("MentorRequests")
+  MenteeRequests      MentorshipRequest[]   @relation("MenteeRequests")
+
 }
 
 model Profile {
@@ -57,4 +67,16 @@ model Availability {
   startTime     String
   endTime       String
   user          User      @relation(fields: [mentorId], references: [id])
+}
+
+model MentorshipRequest {
+  id          Int       @id @default(autoincrement())
+  mentorId    Int
+  menteeId    Int
+  status      RequestStatus   @default(Pending)
+  createdAt   DateTime        @default(now())
+
+  mentor      User    @relation("MentorRequests", fields: [mentorId], references: [id])
+  mentee      User    @relation("MenteeRequests", fields: [menteeId], references: [id])
+
 }

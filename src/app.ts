@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import availabilityRoutes from "./routes/mentorAvailability.js";
+import mentorshipRequestsRoutes from "./routes/mentorshipRequests.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/availability", availabilityRoutes)
+app.use("/api/availability", availabilityRoutes);
+app.use("/api/requests", mentorshipRequestsRoutes);
 
 export default app;
