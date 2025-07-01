@@ -38,7 +38,8 @@ export interface fullUserProfile extends UserProfile {
   role: string
 }
 
-export interface availability {
+export interface Availability {
+  id: number;
   day: Day;
   startTime: string;
   endTime: string;

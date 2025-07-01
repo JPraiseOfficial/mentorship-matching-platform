@@ -24,9 +24,9 @@ export const createProfileDto = z.object({
 });
 export type createProfileDtoType = z.infer<typeof createProfileDto>;
 
-// DTO for getting user profile by ID
-// This is used in the controller to validate the request parameters
-export const getUserProfileParams = z.object({
+// DTO for getting any resource by ID
+// This is used in the controller to validate the ID request parameters
+export const getResourceByIdParam = z.object({
     id: z.coerce.number({invalid_type_error: "ID must be a number"})
 });
 

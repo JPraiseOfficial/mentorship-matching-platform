@@ -1,4 +1,4 @@
-import { createProfileDto, getUserProfileParams } from "../dtos/user.dto.js";
+import { createProfileDto, getResourceByIdParam } from "../dtos/user.dto.js";
 import { NotFoundError, ResourceExistsError } from "../errors/customErrors.js";
 import * as services from "../services/users.js";
 import { Request, Response } from "express";
@@ -41,7 +41,7 @@ export const getUserProfile = async (req: Request, res: Response) => {
 }
 
 export const getAnyProfile = async (req: Request, res: Response) => {
-    const validate = getUserProfileParams.safeParse(req.params);
+    const validate = getResourceByIdParam.safeParse(req.params);
     if (!validate.success) {
         res.status(400).json({ errors: validate.error.issues });
         return;
