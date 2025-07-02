@@ -70,9 +70,11 @@ model Availability {
 }
 
 model MentorshipRequest {
-  id          Int       @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
   mentorId    Int
   menteeId    Int
+  date        DateTime
+  time        String
   status      RequestStatus   @default(Pending)
   createdAt   DateTime        @default(now())
 

@@ -38,3 +38,15 @@ export const createAvailabilityDto = z.object({
     endTime: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, { message: "Time must be valid in HH:mm:ss format" }),
 });
 export type createAvailabilityDtoType = z.infer<typeof createAvailabilityDto>;
+
+// DTOs for sending mentorship request
+// This is used in the controller to validate the ID request parameters
+export const MentorshipRequestParam = z.object({
+    mentorId: z.coerce.number({invalid_type_error: "ID must be a number"})
+});
+
+export const sendMentorshipRequestDto = z.object({
+    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Date must be in YYYY-MM-DD format" }),
+    time: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, { message: "Time must be valid in HH:mm:ss format" }),
+});
+export type sendMentorshipRequestDtoType = z.infer<typeof sendMentorshipRequestDto>;

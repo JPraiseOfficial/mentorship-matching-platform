@@ -1,4 +1,5 @@
 import { JwtPayload } from 'jsonwebtoken';
+import { RequestStatus } from '@prisma/client';
 
 export enum Role {
   Admin = 'Admin',
@@ -43,4 +44,21 @@ export interface Availability {
   day: Day;
   startTime: string;
   endTime: string;
+}
+
+export interface createMentorshipRequest {
+  mentorId: number;
+  menteeId: number;
+  date: string; // YYYY-MM-DD format
+  time: string; // HH:mm:ss format
+}
+
+export interface MentorshipRequest {
+  id: number;
+  mentorId: number;
+  menteeId: number;
+  date: Date;
+  time: string;
+  status: RequestStatus;
+  createdAt: Date;
 }
