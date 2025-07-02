@@ -30,3 +30,18 @@ export const getReceivedRequests = async (mentorId: number): Promise<MentorshipR
   });
   return requests;
 };
+
+export const updateRequestStatus = async (requestId: number, status: RequestStatus): Promise<MentorshipRequest> => {
+  const updatedRequest = await prisma.mentorshipRequest.update({
+    where: { id: requestId },
+    data: { status },
+  });
+  return updatedRequest;
+};
+
+export const deleteRequest = async (requestId: number): Promise<void> => {
+  await prisma.mentorshipRequest.delete({
+    where: { id: requestId },
+  });
+  return;
+};
