@@ -13,3 +13,20 @@ export const createRequest = async (data: createMentorshipRequest): Promise<Ment
   return request;
 };
 
+export const getSentRequests = async (menteeId: number): Promise<MentorshipRequest[]> => {
+  const requests = await prisma.mentorshipRequest.findMany({
+    where: {
+      menteeId: menteeId,
+    },
+  });
+  return requests;
+}
+
+export const getReceivedRequests = async (mentorId: number): Promise<MentorshipRequest[]> => {
+  const requests = await prisma.mentorshipRequest.findMany({
+    where: {
+      mentorId: mentorId,
+    },
+  });
+  return requests;
+};
