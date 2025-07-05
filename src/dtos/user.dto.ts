@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// DTO for register and login
+// DTO for register user
 export const createUserDto = z.object({
     email: z.string().email(),
     password: z.string().min(6).max(100),
@@ -8,6 +8,7 @@ export const createUserDto = z.object({
 });
 export type createUserDtoType = z.infer<typeof createUserDto>;
 
+// DTO for User Login
 export const userLoginDto = z.object({
     email: z.string().email(),
     password: z.string().min(1, "Password is required"),
@@ -54,6 +55,7 @@ export const sendMentorshipRequestDto = z.object({
 });
 export type sendMentorshipRequestDtoType = z.infer<typeof sendMentorshipRequestDto>;
 
+// DTO for Updating Request Status by mentor
 export const updateRequestStatusDto = z.object({
     status: z.enum(["Accepted", "Rejected"])
 })

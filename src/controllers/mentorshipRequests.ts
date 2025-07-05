@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import * as services from "../services/mentorshipRequests.js";
 import {
-  sendMentorshipRequestDto,
   MentorshipRequestParam,
   updateRequestStatusDto,
   getResourceByIdParam,
 } from "../dtos/user.dto.js";
 import { ZodError } from "zod";
+import { NotFoundError } from "../errors/customErrors.js";
 
 export const createRequest = async (req: Request, res: Response) => {
   const validateParams = MentorshipRequestParam.safeParse(req.params);
@@ -15,18 +15,10 @@ export const createRequest = async (req: Request, res: Response) => {
     return;
   }
 
-  const validateBody = sendMentorshipRequestDto.safeParse(req.body);
-  if (!validateBody.success) {
-    res.status(400).json({ error: validateBody.error.issues });
-    return;
-  }
-
   try {
     const data = {
       mentorId: validateParams.data.mentorId,
-      menteeId: req.user!.id,
-      date: validateBody.data.date,
-      time: validateBody.data.time,
+      menteeId: req.user!.id
     };
     const newRequest = await services.createRequest(data);
     res.status(201).json({
@@ -92,16 +84,20 @@ export const deleteRequest = async (req: Request, res: Response) => {
     const validateParam = getResourceByIdParam.safeParse(req.params);
     if (!validateParam.success) {
       res.status(400).json({ error: validateParam.error.issues });
-      return
+      return;
     }
 
     const requestId = validateParam.data.id;
 
     await services.deleteRequest(requestId);
-    res.status(204).json({message: "Request successfully deleted"});
+    res.status(204).json({ message: "Request successfully deleted" });
   } catch (error) {
+    if (error instanceof NotFoundError) {
+      res.status(error.statusCode).json({message: error.message});
+      return;
+    }
     console.error("Error deleting request:", error);
     res.status(500).json({ error: "Failed to delete request" });
-    return
+    return;
   }
 };

@@ -45,9 +45,6 @@ model User {
 
   profile             Profile?      
   availabilities      Availability[]
-  MentorRequests      MentorshipRequest[]   @relation("MentorRequests")
-  MenteeRequests      MentorshipRequest[]   @relation("MenteeRequests")
-
 }
 
 model Profile {
@@ -58,6 +55,9 @@ model Profile {
   goals     String
   userId    Int       @unique
   user      User      @relation(fields: [userId], references: [id])
+  MentorRequests      MentorshipRequest[]   @relation("MentorRequests")
+  MenteeRequests      MentorshipRequest[]   @relation("MenteeRequests")
+
 }
 
 model Availability {
@@ -73,12 +73,10 @@ model MentorshipRequest {
   id          Int             @id @default(autoincrement())
   mentorId    Int
   menteeId    Int
-  date        DateTime
-  time        String
   status      RequestStatus   @default(Pending)
   createdAt   DateTime        @default(now())
 
-  mentor      User    @relation("MentorRequests", fields: [mentorId], references: [id])
-  mentee      User    @relation("MenteeRequests", fields: [menteeId], references: [id])
+  mentor      Profile    @relation("MentorRequests", fields: [mentorId], references: [userId])
+  mentee      Profile    @relation("MenteeRequests", fields: [menteeId], references: [userId])
 
 }
