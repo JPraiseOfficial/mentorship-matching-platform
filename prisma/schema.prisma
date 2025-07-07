@@ -9,8 +9,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgres"
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -53,7 +53,7 @@ model Profile {
   id        Int       @id @default(autoincrement())
   name      String
   bio       String
-  skills    String
+  skills    String[]
   goals     String
   userId    Int       @unique
   user      User      @relation(fields: [userId], references: [id])

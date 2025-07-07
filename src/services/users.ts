@@ -32,6 +32,7 @@ export const getProfile = async (userId: number): Promise<fullUserProfile> => {
         throw new NotFoundError("User has no profile!");
     }
     const profileData = {
+        id: profile.id,
         name: profile.name,
         bio: profile.bio,
         skills: profile.skills,

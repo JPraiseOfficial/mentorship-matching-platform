@@ -32,7 +32,7 @@ export interface UserProfile {
   id: number;
   name: string;
   bio: string;
-  skills: string;
+  skills: string[];
   goals: string;
   userId: number;
 }
@@ -85,18 +85,14 @@ interface Session {
 export interface MenteeSession extends Session {
   mentor: {
     name?: string,
-    skills?: string,
+    skills?: string[],
   }
 }
 
 export interface MentorSession extends Session {
-  id: number;
-  mentorId: number;
-  menteeId: number;
-  dateTime: Date;
   mentee: {
     name?: string,
     bio?: string,
-    skills?: string,
+    skills?: string[],
   }
 }

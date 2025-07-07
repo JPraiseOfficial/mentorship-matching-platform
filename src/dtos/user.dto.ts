@@ -20,7 +20,7 @@ export type userLoginDtoType = z.infer<typeof userLoginDto>;
 export const createProfileDto = z.object({
     name: z.string().min(1, "Name is required"),
     bio: z.string().min(1, "Bio is required"),
-    skills: z.string().min(1, "Skills is required"),
+    skills: z.array(z.string()).min(1, "Skills is required"),
     goals: z.string().min(1, "Goals are required"),
 });
 export type createProfileDtoType = z.infer<typeof createProfileDto>;
