@@ -29,10 +29,12 @@ export interface MyJwtPayload extends JwtPayload {
 }
 
 export interface UserProfile {
+  id: number;
   name: string;
   bio: string;
   skills: string;
   goals: string;
+  userId: number;
 }
 
 export interface fullUserProfile extends UserProfile {

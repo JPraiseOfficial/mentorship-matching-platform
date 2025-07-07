@@ -20,13 +20,7 @@ export const createProfile = async (userId: number, data: createProfileDtoType):
             }
         }
     });
-    const profileData = {
-        name: profile.name,
-        bio: profile.bio,
-        skills: profile.skills,
-        goals: profile.goals
-    }
-    return profileData;
+    return profile;
 }
 
 export const getProfile = async (userId: number): Promise<fullUserProfile> => {
@@ -42,7 +36,8 @@ export const getProfile = async (userId: number): Promise<fullUserProfile> => {
         bio: profile.bio,
         skills: profile.skills,
         goals: profile.goals,
-        role: profile.user.role
+        role: profile.user.role,
+        userId: profile.userId
     }
     return profileData;
 }
@@ -61,11 +56,5 @@ export const updateProfile = async (userId: number, data: createProfileDtoType):
             ...data,
         }
     });
-    const profileData = {
-        name: updatedProfile.name,
-        bio: updatedProfile.bio,
-        skills: updatedProfile.skills,
-        goals: updatedProfile.goals
-    }
-    return profileData;
+    return updatedProfile;
 }

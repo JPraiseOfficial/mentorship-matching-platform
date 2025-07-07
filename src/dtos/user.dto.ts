@@ -61,8 +61,14 @@ export const createSessionDto = z.object({
 });
 export type createSessionDto = z.infer<typeof createSessionDto>;
 
+// DTO to add session feedback after session.
 export const updateSessionFeedbackDto = z.object({
     rating: z.number({message: "Please, rate the session on the scale of 1-5"}).max(5),
     feedback: z.string().min(20, {message: "Please, leave a comment about the session"})
 })
 export type updateSessionFeedbackDtoType = z.infer<typeof updateSessionFeedbackDto>
+
+// DTO for admin to update user role
+export const updateUserRoleDTO = z.object({
+    role: z.enum(["Admin", "Mentor", "Mentee"])
+})
