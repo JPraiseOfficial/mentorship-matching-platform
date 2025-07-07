@@ -48,14 +48,21 @@ export const MentorshipRequestParam = z.object({
     mentorId: z.coerce.number({invalid_type_error: "ID must be a number"})
 });
 
-// This is for validating the body
-export const sendMentorshipRequestDto = z.object({
-    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Date must be in YYYY-MM-DD format" }),
-    time: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, { message: "Time must be valid in HH:mm:ss format" }),
-});
-export type sendMentorshipRequestDtoType = z.infer<typeof sendMentorshipRequestDto>;
-
 // DTO for Updating Request Status by mentor
 export const updateRequestStatusDto = z.object({
     status: z.enum(["Accepted", "Rejected"])
 })
+
+// DTO to create a new session.
+export const createSessionDto = z.object({
+    mentorId: z.number({invalid_type_error: "ID must be a number"}),
+    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Date must be in YYYY-MM-DD format" }),
+    time: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, { message: "Time must be valid in HH:mm:ss format" }),
+});
+export type createSessionDto = z.infer<typeof createSessionDto>;
+
+export const updateSessionFeedbackDto = z.object({
+    rating: z.number({message: "Please, rate the session on the scale of 1-5"}).max(5),
+    feedback: z.string().min(20, {message: "Please, leave a comment about the session"})
+})
+export type updateSessionFeedbackDtoType = z.infer<typeof updateSessionFeedbackDto>

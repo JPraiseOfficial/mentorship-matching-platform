@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import availabilityRoutes from "./routes/mentorAvailability.js";
 import mentorshipRequestsRoutes from "./routes/mentorshipRequests.js";
+import sessionRoutes from "./routes/sessions.js"
 
 const app = express();
 
@@ -21,5 +22,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/availability", availabilityRoutes);
 app.use("/api/requests", mentorshipRequestsRoutes);
+app.use("/api/sessions", sessionRoutes)
 
 export default app;

@@ -45,6 +45,8 @@ model User {
 
   profile             Profile?      
   availabilities      Availability[]
+  MentorSession       Session[]     @relation("MentorSession")
+  MenteeSession       Session[]     @relation("MenteeSession")
 }
 
 model Profile {
@@ -78,5 +80,19 @@ model MentorshipRequest {
 
   mentor      Profile    @relation("MentorRequests", fields: [mentorId], references: [userId])
   mentee      Profile    @relation("MenteeRequests", fields: [menteeId], references: [userId])
+
+}
+
+model Session {
+  id          Int             @id @default(autoincrement())
+  mentorId    Int
+  menteeId    Int
+  DateTime    DateTime
+  feedback    String?
+  rating      Int?
+  createdAt   DateTime        @default(now())
+
+  mentor      User    @relation("MentorSession", fields: [mentorId], references: [id])
+  mentee      User    @relation("MenteeSession", fields: [menteeId], references: [id])
 
 }

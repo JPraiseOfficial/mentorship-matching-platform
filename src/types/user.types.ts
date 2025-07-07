@@ -46,6 +46,7 @@ export interface Availability {
   endTime: string;
 }
 
+// Mentorship Requests Types
 export interface createMentorshipRequest {
   mentorId: number;
   menteeId: number;
@@ -59,4 +60,41 @@ export interface MentorshipRequest {
   mentee?: Profile
   status: RequestStatus;
   createdAt: Date;
+}
+
+// Session Types
+export interface createSessionType {
+  mentorId: number;
+  menteeId: number;
+  date: string; // YYYY-MM-DD format
+  time: string; // HH:mm:ss format
+}
+
+interface Session {
+  id: number;
+  mentorId: number;
+  menteeId: number;
+  dateTime: Date;
+  feedback?: string | null;
+  rating?: number | null;
+  createdAt: Date;
+
+}
+export interface MenteeSession extends Session {
+  mentor: {
+    name?: string,
+    skills?: string,
+  }
+}
+
+export interface MentorSession extends Session {
+  id: number;
+  mentorId: number;
+  menteeId: number;
+  dateTime: Date;
+  mentee: {
+    name?: string,
+    bio?: string,
+    skills?: string,
+  }
 }
