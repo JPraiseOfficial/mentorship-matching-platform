@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { createAvailability, getAvailability, deleteAvailability, deleteAllAvailability } from "../controllers/mentorAvailability";
+import { createAvailability, getAvailability, deleteAvailability, deleteAllAvailability } from "../controllers/mentorAvailability.js";
 import { auth } from "../middleware/auth.js";
-import { authorize } from "../middleware/authorise";
+import { authorize } from "../middleware/authorise.js";
 
 const router = Router();
 

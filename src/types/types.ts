@@ -1,5 +1,5 @@
 import { JwtPayload } from 'jsonwebtoken';
-import { RequestStatus, Profile } from '@prisma/client';
+import { RequestStatus } from '@prisma/client';
 
 export enum Role {
   Admin = 'Admin',

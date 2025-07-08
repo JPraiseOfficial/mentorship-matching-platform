@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { createRequest, getReceivedRequests, getSentRequests, updateRequestStatus, deleteRequest } from "../controllers/mentorshipRequests";
-import { auth } from "../middleware/auth";
-import { authorize } from "../middleware/authorise";
+import { createRequest, getReceivedRequests, getSentRequests, updateRequestStatus, deleteRequest } from "../controllers/mentorshipRequests.js";
+import { auth } from "../middleware/auth.js";
+import { authorize } from "../middleware/authorise.js";
 
 const router = Router();
 

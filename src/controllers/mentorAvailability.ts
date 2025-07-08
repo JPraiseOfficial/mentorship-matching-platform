@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { createAvailabilityDto, getResourceByIdParam } from "../dtos/dtos";
+import { createAvailabilityDto, getResourceByIdParam } from "../dtos/dtos.js";
 import * as services from "../services/mentorAvailability.js";
-import { NotFoundError } from "../errors/customErrors";
+import { NotFoundError } from "../errors/customErrors.js";
 
 export const createAvailability = async (req: Request, res: Response) => {
   const validate = createAvailabilityDto.safeParse(req.body);

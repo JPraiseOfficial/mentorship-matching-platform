@@ -1,6 +1,6 @@
-import { prisma } from "../config/prisma";
-import { updateSessionFeedbackDtoType } from "../dtos/dtos";
-import { NotFoundError } from "../errors/customErrors";
+import { prisma } from "../config/prisma.js";
+import { updateSessionFeedbackDtoType } from "../dtos/dtos.js";
+import { NotFoundError } from "../errors/customErrors.js";
 import {
   createSessionType,
   MenteeSession,

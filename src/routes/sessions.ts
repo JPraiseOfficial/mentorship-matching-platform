@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { createSession, deleteSession, getMenteeSessions, getMentorSession, updateFeedbackAndRating } from "../controllers/sessions";
-import { auth } from "../middleware/auth";
-import { authorize } from "../middleware/authorise";
+import { createSession, deleteSession, getMenteeSessions, getMentorSession, updateFeedbackAndRating } from "../controllers/sessions.js";
+import { auth } from "../middleware/auth.js";
+import { authorize } from "../middleware/authorise.js";
 
 const router = Router()
 

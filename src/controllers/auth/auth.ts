@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { userLoginDto } from "../../dtos/dtos";
+import { userLoginDto } from "../../dtos/dtos.js";
 import { prisma } from "../../config/prisma.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { env } from "../../config/env";
+import { env } from "../../config/env.js";
 
 // Function to generate JWT token
 const generateJwtToken = (userId: number, role: string) => {

@@ -1,6 +1,5 @@
 import { prisma } from "../config/prisma.js";
 import { createAvailabilityDtoType } from "../dtos/dtos.js";
-import { NotFoundError } from "../errors/customErrors.js";
 import { Availability, Day } from "../types/types.js";
 
 export const createAvailability = async (

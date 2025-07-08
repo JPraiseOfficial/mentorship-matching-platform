@@ -1,11 +1,11 @@
 import { RequestStatus } from "@prisma/client";
-import { prisma } from "../config/prisma";
+import { prisma } from "../config/prisma.js";
 import {
   createMentorshipRequest,
   MenteeMentorshipRequest,
   MentorMentorshipRequest,
 } from "../types/types.js";
-import { NotFoundError } from "../errors/customErrors";
+import { NotFoundError } from "../errors/customErrors.js";
 
 export const createRequest = async (
   data: createMentorshipRequest
