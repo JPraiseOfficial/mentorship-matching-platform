@@ -54,12 +54,28 @@ export interface createMentorshipRequest {
   menteeId: number;
 }
 
-export interface MentorshipRequest {
+export interface MenteeMentorshipRequest {
   id: number;
   mentorId: number;
+  mentor: {
+    name: string | undefined;
+    bio: string | undefined;
+    skills: string[] | undefined;
+    goals: string | undefined;
+  } 
+  status: RequestStatus;
+  createdAt: Date;
+}
+
+export interface MentorMentorshipRequest {
+  id: number;
   menteeId: number;
-  mentor?: Profile
-  mentee?: Profile
+  mentee: {
+    name: string | undefined;
+    bio: string | undefined;
+    skills: string[] | undefined;
+    goals: string | undefined;
+  } 
   status: RequestStatus;
   createdAt: Date;
 }
