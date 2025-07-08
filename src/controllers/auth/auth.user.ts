@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as services from "../../services/auth.user.js";
-import { createUserDto } from "../../dtos/user.dto.js";
+import { createUserDto } from "../../dtos/dtos.js";
 import { z } from "zod";
 import {
   NotFoundError,

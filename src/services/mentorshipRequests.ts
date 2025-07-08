@@ -4,7 +4,7 @@ import {
   createMentorshipRequest,
   MenteeMentorshipRequest,
   MentorMentorshipRequest,
-} from "../types/user.types.js";
+} from "../types/types.js";
 import { NotFoundError } from "../errors/customErrors";
 
 export const createRequest = async (

@@ -112,3 +112,11 @@ export interface MentorSession extends Session {
     skills?: string[],
   }
 }
+
+// Admin Types
+export interface GetAllUsersType {
+    id: number,
+    name: String | undefined,
+    email: String,
+    role: Role,
+}

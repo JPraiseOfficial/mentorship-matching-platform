@@ -5,7 +5,7 @@ import {
   createSessionDto,
   getResourceByIdParam,
   updateSessionFeedbackDto,
-} from "../dtos/user.dto.js";
+} from "../dtos/dtos.js";
 import { NotFoundError } from "../errors/customErrors.js";
 
 export const createSession = async (req: Request, res: Response) => {

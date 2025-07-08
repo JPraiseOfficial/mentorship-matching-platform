@@ -4,8 +4,7 @@ import {
   MentorshipRequestParam,
   updateRequestStatusDto,
   getResourceByIdParam,
-} from "../dtos/user.dto.js";
-import { ZodError } from "zod";
+} from "../dtos/dtos.js";
 import { NotFoundError } from "../errors/customErrors.js";
 
 export const createRequest = async (req: Request, res: Response) => {
@@ -18,7 +17,7 @@ export const createRequest = async (req: Request, res: Response) => {
   try {
     const data = {
       mentorId: validateParams.data.mentorId,
-      menteeId: req.user!.id
+      menteeId: req.user!.id,
     };
     const newRequest = await services.createRequest(data);
     res.status(201).json({
@@ -93,7 +92,7 @@ export const deleteRequest = async (req: Request, res: Response) => {
     res.status(204).json({ message: "Request successfully deleted" });
   } catch (error) {
     if (error instanceof NotFoundError) {
-      res.status(error.statusCode).json({message: error.message});
+      res.status(error.statusCode).json({ message: error.message });
       return;
     }
     console.error("Error deleting request:", error);

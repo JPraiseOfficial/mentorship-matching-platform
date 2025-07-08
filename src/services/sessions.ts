@@ -1,11 +1,11 @@
 import { prisma } from "../config/prisma";
-import { updateSessionFeedbackDtoType } from "../dtos/user.dto";
+import { updateSessionFeedbackDtoType } from "../dtos/dtos";
 import { NotFoundError } from "../errors/customErrors";
 import {
   createSessionType,
   MenteeSession,
   MentorSession,
-} from "../types/user.types.js";
+} from "../types/types.js";
 
 export const createSession = async (
   data: createSessionType
@@ -79,15 +79,16 @@ export const getMentorSession = async (
   return sessionData;
 };
 
-export const addSessionFeedback = async (sessionId: number,
+export const addSessionFeedback = async (
+  sessionId: number,
   data: updateSessionFeedbackDtoType
 ): Promise<MenteeSession> => {
   const updatedsession = await prisma.session.update({
     where: { id: sessionId },
     data: { ...data },
-    include: { mentor: { include: { profile: true} } }
+    include: { mentor: { include: { profile: true } } },
   });
-    const returndata = {
+  const returndata = {
     id: updatedsession.id,
     mentorId: updatedsession.mentorId,
     menteeId: updatedsession.menteeId,
@@ -110,7 +111,7 @@ export const deletesession = async (sessionId: number): Promise<void> => {
   if (!request) {
     throw new NotFoundError("Request not found");
   }
-  
+
   await prisma.session.delete({
     where: { id: sessionId },
   });

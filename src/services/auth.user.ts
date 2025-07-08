@@ -1,7 +1,7 @@
 import { prisma } from "../config/prisma.js";
 import bcrypt from "bcryptjs";
-import { Role, UserResponse } from "../types/user.types.js";
-import { createUserDtoType } from "../dtos/user.dto.js";
+import { Role, UserResponse } from "../types/types.js";
+import { createUserDtoType } from "../dtos/dtos.js";
 import { NotFoundError, ResourceExistsError } from "../errors/customErrors.js";
 
 // This function creates a new user
@@ -18,7 +18,7 @@ export const createUser = async (
   const hashpassword = await bcrypt.hash(data.password, salt);
   data.password = hashpassword;
   const user = await prisma.user.create({
-    data
+    data,
   });
   const userdata: UserResponse = {
     id: user.id,
@@ -42,4 +42,4 @@ export const getUser = async (userId: number): Promise<UserResponse | null> => {
     role: user.role as Role,
   };
   return userResponse;
-}
+};

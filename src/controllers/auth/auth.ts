@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { userLoginDto } from "../../dtos/user.dto";
+import { userLoginDto } from "../../dtos/dtos";
 import { prisma } from "../../config/prisma.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
