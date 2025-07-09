@@ -1,15 +1,16 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/Login";
+import LoginForm from "./components/LoginForm";
+import ProfileForm from "./components/NewProfileForm";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
     <div>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/profile" element={<ProfilePage />} /> */}
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/profile/edit" element={<ProfileForm />} />
       </Routes>
     </div>
     </BrowserRouter>

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { loginUser } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
-const Login: React.FC = () => {
+const LoginForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,8 +17,8 @@ const Login: React.FC = () => {
     setSuccess(false);
 
     try {
-      const api = await loginUser(email, password);
-      console.log( api);
+      await loginUser(email, password);
+      navigate('/profile/edit')
     } catch (error: any) {
       setError(error.response?.data?.message || "Login Failed");
     } finally {
@@ -71,4 +73,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginForm;
