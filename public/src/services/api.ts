@@ -2,7 +2,7 @@ import axios from "axios";
 import type { ProfileFormData } from "../components/NewProfileForm";
 
 const API = axios.create({
-    baseURL: "http://localhost:3000/api",
+    baseURL: "https://mentorship-matching-platform-rxo7.onrender.com/api",
     withCredentials: true
 })
 
