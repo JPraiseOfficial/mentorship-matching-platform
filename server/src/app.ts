@@ -9,10 +9,14 @@ import availabilityRoutes from "./routes/mentorAvailability.js";
 import mentorshipRequestsRoutes from "./routes/mentorshipRequests.js";
 import sessionRoutes from "./routes/sessions.js"
 import adminRoutes from "./routes/admin.js"
+import { env } from "./config/env.js";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: env.FRONTEND_URL,
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
