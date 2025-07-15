@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { loginUser } from "../services/api";
+import { getUser, loginUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm: React.FC = () => {
@@ -18,7 +18,12 @@ const LoginForm: React.FC = () => {
 
     try {
       await loginUser(email, password);
-      navigate('/profile/edit')
+      const user = await getUser();
+      if (user.role === "Admin") {
+        navigate("/admin/users");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error: any) {
       setError(error.response?.data?.message || "Login Failed");
     } finally {
