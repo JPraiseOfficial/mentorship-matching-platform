@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ProfileFormData } from "../components/NewProfileForm";
+import type { ProfileFormData } from "../types/types.ts";
 import type { User } from "../types/types";
 
 const API = axios.create({
@@ -15,6 +15,11 @@ export const loginUser = async (email: string, password: string) => {
 
 export const getUser = async (): Promise<User> => {
   const response = await API.get("/auth/me");
+  return response.data;
+};
+
+export const registerUser = async () => {
+  const response = await API.post("/auth/register");
   return response.data;
 };
 

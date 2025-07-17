@@ -6,3 +6,15 @@ export interface User {
   email: string;
   role: Role;
 }
+
+export interface ProfileFormData {
+  name: string;
+  bio: string;
+  skills: string[];
+  goals: string;
+}
+
+export interface RegisterFormData {
+  email: string;
+  password: string;
+}
