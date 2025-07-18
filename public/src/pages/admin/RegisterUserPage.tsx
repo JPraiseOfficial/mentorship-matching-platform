@@ -1,7 +1,7 @@
 import AdminSidebar from "../../components/AdminSidebar";
-import Users from "../../components/Users";
+import RegisterUser from "../../components/RegisterUser";
 
-const UsersPage = () => {
+const RegisterUserPage = () => {
   return (
     <div className="container-fluid">
       <div className="row">
@@ -9,11 +9,11 @@ const UsersPage = () => {
           <AdminSidebar />
         </div>
         <div className="col-md-10 p-4">
-          <Users />
+          <RegisterUser />
         </div>
       </div>
     </div>
   );
 };
 
-export default UsersPage;
+export default RegisterUserPage;

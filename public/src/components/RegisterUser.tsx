@@ -51,58 +51,94 @@ const RegisterUser = () => {
   };
 
   return (
-    <div>
-      {generalError && (
-        <div className="alert alert-danger mt-3">{generalError}</div>
-      )}
+    <div className="container mt-5" style={{ maxWidth: "600px" }}>
+      {generalError && <div className="alert alert-danger">{generalError}</div>}
       {success && (
-        <div className="alert alert-success mt-3">
-          User has been registered Successfully!
+        <div className="alert alert-success">
+          ✅ User has been registered successfully!
         </div>
       )}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <p>{fieldErrors.email && fieldErrors.email[0]}</p>
+
+      <div className="card shadow-sm">
+        <div className="card-body">
+          <h2 className="mb-4">Register New User</h2>
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label fw-bold">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                className={`form-control ${
+                  fieldErrors.email ? "is-invalid" : ""
+                }`}
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              {fieldErrors.email && (
+                <div className="invalid-feedback">{fieldErrors.email[0]}</div>
+              )}
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label fw-bold">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                className={`form-control ${
+                  fieldErrors.password ? "is-invalid" : ""
+                }`}
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              {fieldErrors.password && (
+                <div className="invalid-feedback">
+                  {fieldErrors.password[0]}
+                </div>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="role" className="form-label fw-bold">
+                Role
+              </label>
+              <select
+                name="role"
+                id="role"
+                className={`form-select ${
+                  fieldErrors.role ? "is-invalid" : ""
+                }`}
+                value={formData.role}
+                onChange={handleChange}
+              >
+                <option value="">Select Role</option>
+                <option value="Admin">Admin</option>
+                <option value="Mentor">Mentor</option>
+                <option value="Mentee">Mentee</option>
+              </select>
+              {fieldErrors.role && (
+                <div className="invalid-feedback">{fieldErrors.role[0]}</div>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-primary w-100"
+              disabled={loading}
+            >
+              {loading ? "Registering..." : "Register User"}
+            </button>
+          </form>
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-          <p>{fieldErrors.password && fieldErrors.password[0]}</p>
-        </div>
-        <div>
-          <label htmlFor="role">Role</label>
-          <select
-            name="role"
-            id="role"
-            value={formData.role}
-            onChange={handleChange}
-          >
-            <option value="Admin">Admin</option>
-            <option value="Mentor">Mentor</option>
-            <option value="Mentee">Mentee</option>
-          </select>
-          <p>{fieldErrors.role && fieldErrors.role[0]}</p>
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? "Loading" : "Register User"}
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

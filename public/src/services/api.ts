@@ -29,6 +29,11 @@ export const createProfile = async (data: ProfileFormData) => {
   return response.data;
 };
 
+export const getProfile = async (): Promise<ProfileFormData> => {
+  const response = await API.get("/users/me");
+  return response.data;
+};
+
 // ADMIN ROUTES
 export const getAllUsers = async (): Promise<User[]> => {
   const response = await API.get("/admin/users");

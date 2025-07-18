@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginForm from "./components/LoginForm";
 import ProfileForm from "./components/NewProfileForm";
 import UsersPage from "./pages/admin/UsersPage";
-import RegisterUser from "./components/RegisterUser";
+import RegisterUserPage from "./pages/admin/RegisterUserPage";
 
 const App: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ const App: React.FC = () => {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/profile/edit" element={<ProfileForm />} />
           <Route path="/admin/users" element={<UsersPage />} />
-          <Route path="/register" element={<RegisterUser />} />
+          <Route path="/register" element={<RegisterUserPage />} />
         </Routes>
       </div>
     </BrowserRouter>

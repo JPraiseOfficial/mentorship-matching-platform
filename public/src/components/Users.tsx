@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "../services/api.js";
 import type { User } from "../types/types.js";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -30,12 +31,16 @@ const Users = () => {
   }, []);
   return (
     <>
-      <div>
+      <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>Users</h1>
+        <Link to="/register" className="btn btn-primary">
+          + Add User
+        </Link>
       </div>
-      <div>
-        <table>
-          <thead>
+
+      <div className="table-responsive">
+        <table className="table table-striped table-hover">
+          <thead className="table-dark">
             <tr>
               <th>S/N</th>
               <th>Name</th>
@@ -47,7 +52,9 @@ const Users = () => {
           <tbody>
             {error && (
               <tr>
-                <td colSpan={5}>{error}</td>
+                <td colSpan={5} className="text-danger">
+                  {error}
+                </td>
               </tr>
             )}
             {loading ? (

@@ -79,75 +79,119 @@ const ProfileForm = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" style={{ maxWidth: "700px" }}>
       <h1 className="mb-4">Edit Your Profile</h1>
 
-      <form onSubmit={handleSubmit}>
-        {generalError && (
-          <div className="alert alert-danger mt-3">{generalError}</div>
-        )}
-        {success && (
-          <div className="alert alert-success mt-3">
-            Profile Updated Successfully!
-          </div>
-        )}
-
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            name="name"
-            id="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-          <p>{serverErrors.name && serverErrors.name[0]}</p>
+      {generalError && <div className="alert alert-danger">{generalError}</div>}
+      {success && (
+        <div className="alert alert-success">
+          ✅ Profile updated successfully!
         </div>
+      )}
 
-        <div>
-          <label htmlFor="bio">Bio:</label>
-          <textarea
-            name="bio"
-            id="bio"
-            value={formData.bio}
-            onChange={handleChange}
-            required
-          />
-          <p>{serverErrors.bio && serverErrors.bio[0]}</p>
-        </div>
-
-        <div>
-          <label>Skills:</label>
-          {availableSkills.map((skill) => (
-            <label key={skill} style={{ display: "block" }}>
+      <div className="card shadow-sm">
+        <div className="card-body">
+          <form onSubmit={handleSubmit}>
+            {/* Name */}
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label fw-bold">
+                Name
+              </label>
               <input
-                type="checkbox"
-                value={skill}
-                checked={formData.skills.includes(skill)}
-                onChange={handleSkillsChange}
+                type="text"
+                name="name"
+                id="name"
+                className={`form-control ${
+                  serverErrors.name ? "is-invalid" : ""
+                }`}
+                value={formData.name}
+                onChange={handleChange}
+                required
               />
-              {skill}
-            </label>
-          ))}
-          <p>{serverErrors.skills && serverErrors.skills[0]}</p>
-        </div>
+              {serverErrors.name && (
+                <div className="invalid-feedback">{serverErrors.name[0]}</div>
+              )}
+            </div>
 
-        <div>
-          <label htmlFor="goals">Goals:</label>
-          <input
-            name="goals"
-            id="goals"
-            value={formData.goals}
-            onChange={handleChange}
-            required
-          />
-          <p>{serverErrors.goals && serverErrors.goals[0]}</p>
-        </div>
+            {/* Bio */}
+            <div className="mb-3">
+              <label htmlFor="bio" className="form-label fw-bold">
+                Bio
+              </label>
+              <textarea
+                name="bio"
+                id="bio"
+                className={`form-control ${
+                  serverErrors.bio ? "is-invalid" : ""
+                }`}
+                value={formData.bio}
+                onChange={handleChange}
+                required
+              />
+              {serverErrors.bio && (
+                <div className="invalid-feedback">{serverErrors.bio[0]}</div>
+              )}
+            </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Saving..." : "Save"}
-        </button>
-      </form>
+            {/* Skills */}
+            <div className="mb-3">
+              <label className="form-label fw-bold">Skills</label>
+              <div className="row">
+                {availableSkills.map((skill) => (
+                  <div className="form-check col-6 col-md-4" key={skill}>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value={skill}
+                      id={`skill-${skill}`}
+                      checked={formData.skills.includes(skill)}
+                      onChange={handleSkillsChange}
+                    />
+                    <label
+                      htmlFor={`skill-${skill}`}
+                      className="form-check-label"
+                    >
+                      {skill}
+                    </label>
+                  </div>
+                ))}
+              </div>
+              {serverErrors.skills && (
+                <div className="text-danger mt-1">{serverErrors.skills[0]}</div>
+              )}
+            </div>
+
+            {/* Goals */}
+            <div className="mb-4">
+              <label htmlFor="goals" className="form-label fw-bold">
+                Goals
+              </label>
+              <input
+                type="text"
+                name="goals"
+                id="goals"
+                className={`form-control ${
+                  serverErrors.goals ? "is-invalid" : ""
+                }`}
+                value={formData.goals}
+                onChange={handleChange}
+                required
+              />
+              {serverErrors.goals && (
+                <div className="invalid-feedback">{serverErrors.goals[0]}</div>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-primary w-100"
+              disabled={loading}
+            >
+              {loading ? "Saving..." : "Save Changes"}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
