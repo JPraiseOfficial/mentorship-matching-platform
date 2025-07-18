@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getProfile, getUser, loginUser } from "../services/api";
+import { getUser, loginUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -20,23 +20,14 @@ const LoginForm: React.FC = () => {
     try {
       await loginUser(email, password);
       const user = await getUser();
-      const profile = await getProfile();
-      if (user.email && !profile.name) {
-        navigate("/profile/edit");
+      if (user.role === "Admin") {
+        navigate("/admin/users");
       } else {
-        if (user.role === "Admin") {
-          navigate("/admin/users");
-        } else {
-          navigate("/dashboard");
-        }
+        navigate("/dashboard");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        if (error.response?.data?.message == "User has no profile!") {
-          navigate("/profile/edit");
-        } else {
-          setError(error.response?.data?.message || "Login Failed.");
-        }
+        setError(error.response?.data?.message || "Login Failed.");
       } else {
         setError("An unexpected error occured. Please, try again later");
       }
