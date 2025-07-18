@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import type { ProfileFormData } from "../types/types.js";
 import { createProfile } from "../services/api";
+import axios from "axios";
 
 const availableSkills = [
   "JavaScript",
@@ -19,9 +20,13 @@ const ProfileForm = () => {
     skills: [],
     goals: "",
   });
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const [generalError, setGeneralError] = useState("");
+  const [serverErrors, setServerErrors] = useState<Record<string, string[]>>(
+    {}
+  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -30,17 +35,25 @@ const ProfileForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSkillsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOptions = Array.from(e.target.selectedOptions).map(
-      (option) => option.value
-    );
-    setFormData((prev) => ({ ...prev, skills: selectedOptions }));
+  const handleSkillsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    setFormData((prev) => {
+      if (checked) {
+        return { ...prev, skills: [...prev.skills, value] };
+      } else {
+        return {
+          ...prev,
+          skills: prev.skills.filter((skill) => skill !== value),
+        };
+      }
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
+    setServerErrors({});
+    setGeneralError("");
     setSuccess(false);
 
     try {
@@ -48,7 +61,18 @@ const ProfileForm = () => {
       setSuccess(true);
     } catch (error) {
       console.log(error);
-      setError("An error occured. Please, try again later.");
+      if (axios.isAxiosError(error)) {
+        const apiErrors = error.response?.data.errors;
+        if (apiErrors) {
+          setServerErrors(apiErrors);
+        } else {
+          setGeneralError(
+            error.response?.data.message || "Something went wrong!"
+          );
+        }
+      } else {
+        setGeneralError("Network error");
+      }
     } finally {
       setLoading(false);
     }
@@ -59,7 +83,9 @@ const ProfileForm = () => {
       <h1 className="mb-4">Edit Your Profile</h1>
 
       <form onSubmit={handleSubmit}>
-        {error && <div className="alert alert-danger mt-3">{error}</div>}
+        {generalError && (
+          <div className="alert alert-danger mt-3">{generalError}</div>
+        )}
         {success && (
           <div className="alert alert-success mt-3">
             Profile Updated Successfully!
@@ -73,7 +99,9 @@ const ProfileForm = () => {
             id="name"
             value={formData.name}
             onChange={handleChange}
+            required
           />
+          <p>{serverErrors.name && serverErrors.name[0]}</p>
         </div>
 
         <div>
@@ -83,25 +111,25 @@ const ProfileForm = () => {
             id="bio"
             value={formData.bio}
             onChange={handleChange}
+            required
           />
+          <p>{serverErrors.bio && serverErrors.bio[0]}</p>
         </div>
 
         <div>
-          <label htmlFor="skills">Skills:</label>
-          <select
-            id="skills"
-            name="skills"
-            multiple
-            value={formData.skills}
-            onChange={handleSkillsChange}
-          >
-            {availableSkills.map((skill) => (
-              <option key={skill} value={skill}>
-                {skill}
-              </option>
-            ))}
-          </select>
-          <small>Hold Ctrl (Windows) or Cmd (Mac) to select multiple</small>
+          <label>Skills:</label>
+          {availableSkills.map((skill) => (
+            <label key={skill} style={{ display: "block" }}>
+              <input
+                type="checkbox"
+                value={skill}
+                checked={formData.skills.includes(skill)}
+                onChange={handleSkillsChange}
+              />
+              {skill}
+            </label>
+          ))}
+          <p>{serverErrors.skills && serverErrors.skills[0]}</p>
         </div>
 
         <div>
@@ -111,7 +139,9 @@ const ProfileForm = () => {
             id="goals"
             value={formData.goals}
             onChange={handleChange}
+            required
           />
+          <p>{serverErrors.goals && serverErrors.goals[0]}</p>
         </div>
 
         <button type="submit" disabled={loading}>

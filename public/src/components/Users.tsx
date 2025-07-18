@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../services/api.js";
 import type { User } from "../types/types.js";
+import axios from "axios";
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,8 +14,14 @@ const Users = () => {
         const data = await getAllUsers();
         setUsers(data);
       } catch (error) {
-        setError(error);
-        console.log(error);
+        if (axios.isAxiosError(error)) {
+          setError(
+            error.response?.data?.message ||
+              "Somenthing went wrong. Please, refresh the page or try again later."
+          );
+        } else {
+          setError("Somenthing went wrong. Please, try again later.");
+        }
       } finally {
         setLoading(false);
       }
@@ -40,9 +47,7 @@ const Users = () => {
           <tbody>
             {error && (
               <tr>
-                <td colSpan={5}>
-                  Failed to fetch users. Please try again later.
-                </td>
+                <td colSpan={5}>{error}</td>
               </tr>
             )}
             {loading ? (

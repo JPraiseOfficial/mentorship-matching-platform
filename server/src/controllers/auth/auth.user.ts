@@ -15,7 +15,7 @@ export const register = async (req: Request, res: Response) => {
     res.status(201).json(user);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      res.status(400).json(error.issues);
+      res.status(400).json({ errors: error.flatten().fieldErrors });
       return;
     }
     if (error instanceof ResourceExistsError) {

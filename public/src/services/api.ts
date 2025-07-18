@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ProfileFormData } from "../types/types.ts";
+import type { ProfileFormData, RegisterFormData } from "../types/types.ts";
 import type { User } from "../types/types";
 
 const API = axios.create({
@@ -18,8 +18,8 @@ export const getUser = async (): Promise<User> => {
   return response.data;
 };
 
-export const registerUser = async () => {
-  const response = await API.post("/auth/register");
+export const registerUser = async (data: RegisterFormData) => {
+  const response = await API.post("/auth/register", { ...data });
   return response.data;
 };
 

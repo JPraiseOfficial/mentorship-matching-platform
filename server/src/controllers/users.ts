@@ -7,7 +7,7 @@ import { Request, Response } from "express";
 export const createProfile = async (req: Request, res: Response) => {
   const validate = createProfileDto.safeParse(req.body);
   if (!validate.success) {
-    res.status(400).json({ errors: validate.error.issues });
+    res.status(400).json({ errors: validate.error.flatten().fieldErrors });
     return;
   }
 
@@ -39,11 +39,9 @@ export const getUserProfile = async (req: Request, res: Response) => {
       return;
     }
     console.error("Error getting user's profile:", error);
-    res
-      .status(500)
-      .json({
-        message: "An unexpected error occurred. Please, try again later.",
-      });
+    res.status(500).json({
+      message: "An unexpected error occurred. Please, try again later.",
+    });
   }
 };
 
@@ -64,18 +62,16 @@ export const getAnyProfile = async (req: Request, res: Response) => {
       return;
     }
     console.error("Error getting user's profile:", error);
-    res
-      .status(500)
-      .json({
-        message: "An unexpected error occurred. Please, try again later.",
-      });
+    res.status(500).json({
+      message: "An unexpected error occurred. Please, try again later.",
+    });
   }
 };
 
 export const updateProfile = async (req: Request, res: Response) => {
   const validate = createProfileDto.safeParse(req.body);
   if (!validate.success) {
-    res.status(400).json({ errors: validate.error.issues });
+    res.status(400).json({ errors: validate.error.flatten().fieldErrors });
     return;
   }
 

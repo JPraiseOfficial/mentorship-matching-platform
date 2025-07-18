@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getUser, loginUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -24,8 +25,12 @@ const LoginForm: React.FC = () => {
       } else {
         navigate("/dashboard");
       }
-    } catch (error: any) {
-      setError(error.response?.data?.message || "Login Failed");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data?.message || "Login Failed.");
+      } else {
+        setError("An unexpected error occured. Please, try again later");
+      }
     } finally {
       setLoading(false);
     }

@@ -17,4 +17,5 @@ export interface ProfileFormData {
 export interface RegisterFormData {
   email: string;
   password: string;
+  role: Role;
 }
