@@ -48,7 +48,7 @@ export const login = async (req: Request, res: Response) => {
     res.cookie("jwtToken", token, {
       httpOnly: true,
       secure: env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: env.NODE_ENV === "production" ? "none" : "strict",
     });
     res.status(200).json({ message: "Login successful" });
   } catch (error) {
