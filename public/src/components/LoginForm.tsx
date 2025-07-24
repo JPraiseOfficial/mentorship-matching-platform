@@ -26,7 +26,12 @@ const LoginForm: React.FC = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      if (axios.isAxiosError(error)) {
+      if (
+        axios.isAxiosError(error) &&
+        error.response?.data?.message === "User has no profile!"
+      ) {
+        navigate("/profile/edit");
+      } else if (axios.isAxiosError(error)) {
         setError(error.response?.data?.message || "Login Failed.");
       } else {
         setError("An unexpected error occured. Please, try again later");

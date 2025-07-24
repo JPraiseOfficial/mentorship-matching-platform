@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { API } from "../services/api.js";
+import { API, getProfile } from "../services/api.js";
 import { AuthContext } from "./AuthContext.js";
 import type { User } from "../types/types.js";
 
@@ -26,6 +26,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await API.post("/auth/login", { email, password });
     const res = await API.get("/auth/me");
     setUser(res.data);
+    const profile = await getProfile();
+    setUser((prevUser) => {
+      if (!prevUser) return prevUser;
+      return { ...prevUser, name: profile.name };
+    });
   };
 
   const logout = async () => {

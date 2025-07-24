@@ -20,7 +20,10 @@ const App: React.FC = () => {
 
             {/* Users Routes */}
             <Route element={<UserRoute />}>
-              <Route path="/profile/edit" element={<ProfileForm />} />
+              <Route
+                path="/profile/edit"
+                element={<ProfileForm mode="create" />}
+              />
             </Route>
 
             {/* Admin Routes */}

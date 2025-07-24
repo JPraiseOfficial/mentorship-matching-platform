@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import type { ProfileFormData } from "../types/types.js";
 import { createProfile } from "../services/api";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/useAuth.js";
 
 const availableSkills = [
   "JavaScript",
@@ -13,7 +15,11 @@ const availableSkills = [
   "Python",
 ];
 
-const ProfileForm = () => {
+type ProfileFormProps = {
+  mode: "create" | "edit";
+};
+
+const ProfileForm = ({ mode }: ProfileFormProps) => {
   const [formData, setFormData] = useState<ProfileFormData>({
     name: "",
     bio: "",
@@ -27,6 +33,8 @@ const ProfileForm = () => {
   const [serverErrors, setServerErrors] = useState<Record<string, string[]>>(
     {}
   );
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -59,6 +67,13 @@ const ProfileForm = () => {
     try {
       await createProfile(formData);
       setSuccess(true);
+      if (mode === "create") {
+        if (user!.role === "Admin") {
+          navigate("/admin/users");
+        } else {
+          navigate("/dashboard");
+        }
+      }
     } catch (error) {
       console.log(error);
       if (axios.isAxiosError(error)) {
