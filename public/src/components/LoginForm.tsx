@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { getUser, loginUser } from "../services/api";
+import { useAuth } from "../auth/useAuth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginForm: React.FC = () => {
+  const { login, user } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -18,9 +19,8 @@ const LoginForm: React.FC = () => {
     setSuccess(false);
 
     try {
-      await loginUser(email, password);
-      const user = await getUser();
-      if (user.role === "Admin") {
+      await login(email, password);
+      if (user!.role === "Admin") {
         navigate("/admin/users");
       } else {
         navigate("/dashboard");

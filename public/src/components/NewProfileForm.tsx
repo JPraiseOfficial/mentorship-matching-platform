@@ -84,9 +84,7 @@ const ProfileForm = () => {
 
       {generalError && <div className="alert alert-danger">{generalError}</div>}
       {success && (
-        <div className="alert alert-success">
-          ✅ Profile updated successfully!
-        </div>
+        <div className="alert alert-success">Profile updated successfully!</div>
       )}
 
       <div className="card shadow-sm">
