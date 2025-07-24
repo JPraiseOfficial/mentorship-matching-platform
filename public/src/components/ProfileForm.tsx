@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { ProfileFormData } from "../types/types.js";
-import { createProfile } from "../services/api";
+import { createProfile } from "../services/api.js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth.js";
