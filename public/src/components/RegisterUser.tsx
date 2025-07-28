@@ -55,7 +55,7 @@ const RegisterUser = () => {
       {generalError && <div className="alert alert-danger">{generalError}</div>}
       {success && (
         <div className="alert alert-success">
-          ✅ User has been registered successfully!
+          User has been registered successfully!
         </div>
       )}
 

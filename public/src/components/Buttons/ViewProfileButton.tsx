@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getOthersProfile } from "../services/api.js";
-import type { UserProfile } from "../types/types.js";
+import { getOthersProfile } from "../../services/api.js";
+import type { UserProfile } from "../../types/types.js";
 import axios from "axios";
 
 type ViewUserProfieProp = {
@@ -47,7 +47,7 @@ const ViewProfileButton = ({ userId }: ViewUserProfieProp) => {
 
   return (
     <>
-      <button className="btn btn-primary" onClick={handleOpen}>
+      <button className="btn btn-secondary" onClick={handleOpen}>
         View Profile
       </button>
 

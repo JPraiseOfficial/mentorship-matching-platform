@@ -3,7 +3,8 @@ import { getAllUsers } from "../services/api.js";
 import type { User } from "../types/types.js";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import ViewProfileButton from "./ViewProfileButton";
+import ViewProfileButton from "./Buttons/ViewProfileButton";
+import UpdateRoleButton from "./Buttons/UpdateRoleButton";
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -87,7 +88,19 @@ const UserRows = ({
       <td>{name}</td>
       <td>{email}</td>
       <td>{role}</td>
-      <td>{<ViewProfileButton userId={id} />}</td>
+      <td>
+        {
+          <>
+            <ViewProfileButton userId={id} />{" "}
+            <UpdateRoleButton
+              name={name}
+              email={email}
+              id={id}
+              currentRole={role}
+            />
+          </>
+        }
+      </td>
     </tr>
   );
 };
