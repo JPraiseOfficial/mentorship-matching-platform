@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ProfileFormData, RegisterFormData } from "../types/types.ts";
+import type { ProfileFormData, RegisterFormData, UserProfile } from "../types/types.ts";
 import type { User } from "../types/types";
 
 export const API = axios.create({
@@ -24,6 +24,11 @@ export const getProfile = async (): Promise<ProfileFormData> => {
   const response = await API.get("/users/me");
   return response.data;
 };
+
+export const getOthersProfile = async (id: number): Promise<UserProfile> => {
+  const response = await API.get(`/users/${id}`)
+  return response.data;
+}
 
 // ADMIN ROUTES
 export const getAllUsers = async (): Promise<User[]> => {

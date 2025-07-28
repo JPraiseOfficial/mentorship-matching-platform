@@ -14,6 +14,10 @@ export interface ProfileFormData {
   goals: string;
 }
 
+export interface UserProfile extends ProfileFormData {
+  role: Role;
+}
+
 export interface RegisterFormData {
   email: string;
   password: string;

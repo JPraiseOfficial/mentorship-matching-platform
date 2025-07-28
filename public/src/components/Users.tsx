@@ -3,6 +3,7 @@ import { getAllUsers } from "../services/api.js";
 import type { User } from "../types/types.js";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ViewProfileButton from "./ViewProfileButton";
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -75,6 +76,7 @@ const Users = () => {
 
 const UserRows = ({
   userCount,
+  id,
   name,
   email,
   role,
@@ -85,7 +87,7 @@ const UserRows = ({
       <td>{name}</td>
       <td>{email}</td>
       <td>{role}</td>
-      <td></td>
+      <td>{<ViewProfileButton userId={id} />}</td>
     </tr>
   );
 };
