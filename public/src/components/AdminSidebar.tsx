@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import LogoutButton from "./Buttons/LogoutButton";
 
 const AdminSidebar = () => {
   return (
@@ -25,12 +26,8 @@ const AdminSidebar = () => {
             My Profile
           </Link>
         </li>
-        <li className="nav-item mb-2">
-          <Link to="/admin/sessions" className="nav-link text-white">
-            Sign out
-          </Link>
-        </li>
       </ul>
+      <LogoutButton />
     </div>
   );
 };
