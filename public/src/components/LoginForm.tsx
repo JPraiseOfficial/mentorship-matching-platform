@@ -34,7 +34,7 @@ const LoginForm: React.FC = () => {
       } else if (axios.isAxiosError(error)) {
         setError(error.response?.data?.message || "Login Failed.");
       } else {
-        setError("An unexpected error occured. Please, try again later");
+        setError("An unexpected error occurred. Please, try again later");
       }
     } finally {
       setLoading(false);
@@ -42,58 +42,70 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-      <div
-        className="card shadow p-4"
-        style={{ maxWidth: "400px", width: "100%" }}
-      >
-        <h1 className="mb-3 text-center h4">Mentorship Matching Platform</h1>
+    <div className="d-flex flex-column min-vh-100">
+      <header className="bg-secondary text-white py-4">
+        <h1 className="h2 ms-5 mb-2">Mentorship Matching Platform</h1>
+      </header>
 
-        <form onSubmit={handleLogin}>
-          {error && <div className="alert alert-danger">{error}</div>}
-          {success && (
-            <div className="alert alert-success">Login successful!</div>
-          )}
+      <main className="flex-grow-1 d-flex justify-content-center align-items-center">
+        <div
+          className="card shadow p-4"
+          style={{ maxWidth: "400px", width: "100%" }}
+        >
+          <h2 className="mb-4 text-center h3">Sign In</h2>
 
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label fw-bold">
-              Email Address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="Enter your email"
-            />
-          </div>
+          <form onSubmit={handleLogin}>
+            {error && <div className="alert alert-danger">{error}</div>}
+            {success && (
+              <div className="alert alert-success">Login successful!</div>
+            )}
 
-          <div className="mb-4">
-            <label htmlFor="password" className="form-label fw-bold">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="Enter your password"
-            />
-          </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label fw-bold">
+                Email Address
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="Enter your email"
+              />
+            </div>
 
-          <button
-            type="submit"
-            className="btn btn-primary w-100"
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
-      </div>
+            <div className="mb-4">
+              <label htmlFor="password" className="form-label fw-bold">
+                Password
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Enter your password"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-primary w-100"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Login"}
+            </button>
+          </form>
+        </div>
+      </main>
+
+      <footer className="bg-light text-center py-3 mt-auto">
+        <small className="text-muted">
+          &copy; {new Date().getFullYear()} Mentorship Platform
+        </small>
+      </footer>
     </div>
   );
 };
