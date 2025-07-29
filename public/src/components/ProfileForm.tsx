@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { ProfileFormData } from "../types/types.js";
-import { createProfile } from "../services/api.js";
+import { createProfile, updateProfile } from "../services/api.js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth.js";
@@ -17,9 +17,10 @@ const availableSkills = [
 
 type ProfileFormProps = {
   mode: "create" | "edit";
+  profile?: ProfileFormData;
 };
 
-const ProfileForm = ({ mode }: ProfileFormProps) => {
+const ProfileForm = ({ mode, profile }: ProfileFormProps) => {
   const [formData, setFormData] = useState<ProfileFormData>({
     name: "",
     bio: "",
@@ -35,6 +36,12 @@ const ProfileForm = ({ mode }: ProfileFormProps) => {
   );
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  useEffect(() => {
+    if (profile) {
+      setFormData(profile);
+    }
+  }, [profile]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -65,7 +72,11 @@ const ProfileForm = ({ mode }: ProfileFormProps) => {
     setSuccess(false);
 
     try {
-      await createProfile(formData);
+      if (profile) {
+        await updateProfile(formData);
+      } else {
+        await createProfile(formData);
+      }
       setSuccess(true);
       if (mode === "create") {
         if (user!.role === "Admin") {

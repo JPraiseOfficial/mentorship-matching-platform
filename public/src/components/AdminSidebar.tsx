@@ -20,6 +20,16 @@ const AdminSidebar = () => {
             Sessions
           </Link>
         </li>
+        <li className="nav-item mb-2">
+          <Link to="/profile" className="nav-link text-white">
+            My Profile
+          </Link>
+        </li>
+        <li className="nav-item mb-2">
+          <Link to="/admin/sessions" className="nav-link text-white">
+            Sign out
+          </Link>
+        </li>
       </ul>
     </div>
   );

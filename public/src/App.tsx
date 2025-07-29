@@ -7,6 +7,7 @@ import RegisterUserPage from "./pages/admin/RegisterUserPage";
 import { AuthProvider } from "./auth/AuthProvider";
 import Unauthorized from "./pages/Unauthorised";
 import { UserRoute, RoleRoute } from "./auth/ProtectRoute";
+import ProfilePage from "./pages/ProfilePage";
 
 const App: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const App: React.FC = () => {
                 path="/profile/edit"
                 element={<ProfileForm mode="create" />}
               />
+              <Route path="/profile" element={<ProfilePage />} />
             </Route>
 
             {/* Admin Routes */}

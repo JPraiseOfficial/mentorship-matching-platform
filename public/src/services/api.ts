@@ -30,6 +30,13 @@ export const getProfile = async (): Promise<ProfileFormData> => {
   return response.data;
 };
 
+export const updateProfile = async (
+  data: ProfileFormData
+): Promise<ProfileFormData> => {
+  const response = await API.put("/users/me/profile", { ...data });
+  return response.data;
+};
+
 export const getOthersProfile = async (id: number): Promise<UserProfile> => {
   const response = await API.get(`/users/${id}`);
   return response.data;
