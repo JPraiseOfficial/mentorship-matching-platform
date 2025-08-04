@@ -50,7 +50,9 @@ export const login = async (req: Request, res: Response) => {
       secure: env.NODE_ENV === "production",
       sameSite: env.NODE_ENV === "production" ? "none" : "strict",
     });
-    res.status(200).json({ message: "Login successful" });
+    res
+      .status(200)
+      .json({ message: "Login successful, JWT token set in cookie" });
   } catch (error) {
     console.error("Error during user login:", error);
     res
