@@ -58,15 +58,6 @@ const swaggerOptions = {
             },
           },
         },
-        UnauthorizedResponse: {
-          type: "object",
-          properties: {
-            message: {
-              type: "string",
-              example: "Unauthorised user",
-            },
-          },
-        },
       },
     },
   },

@@ -45,12 +45,10 @@ const router = Router();
  *             schema:
  *               type: object
  *               properties:
- *                 id:
- *                   type: integer
- *                 email:
+ *                 message:
  *                   type: string
- *                 role:
- *                   type: string
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
  *       400:
  *         description: Validation error
  *       401:
@@ -58,17 +56,31 @@ const router = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/UnauthorizedResponse'
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *             examples:
+ *               Unauthorised:
+ *                 value:
+ *                   message: Unauthorised user
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *             examples:
+ *               Forbidden:
+ *                 value:
+ *                   message: Forbidden
  *       409:
  *         description: Email already exists
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Email already exists
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *             examples:
+ *               ResourceExists:
+ *                 value:
+ *                   message: Email already exists
  *       500:
  *         description: Internal Server Error
  *         content:
@@ -174,20 +186,17 @@ router.post("/logout", logout);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                 email:
- *                   type: string
- *                 role:
- *                   type: string
+ *               $ref: '#/components/schemas/User'
  *       401:
- *         description: Unauthorized User
+ *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/UnauthorizedResponse'
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *             examples:
+ *               Unauthorised:
+ *                 value:
+ *                   message: Unauthorised user
  *       500:
  *         description: Internal Server Error
  *         content:
@@ -198,4 +207,23 @@ router.post("/logout", logout);
  */
 router.get("/me", auth, getUser);
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    User:
+ *      type:
+ *        object
+ *      properties:
+ *        id:
+ *          type: integer
+ *          example: 1
+ *        email:
+ *          type: string
+ *          example: mentee@email.com
+ *        role:
+ *          type: string
+ *          enum: [Admin, Mentor, Mentee]
+ *          example: Mentee
+ */
 export default router;
