@@ -51,6 +51,17 @@ const router = Router();
  *                   $ref: '#/components/schemas/User'
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
+ *             examples:
+ *               Register:
+ *                 value:
+ *                   errors:
+ *                     email: [This is required]
+ *                     password: [Password must be at least 6 characters]
+ *                     role: [Role should be Admin Mentor or Mentee]
  *       401:
  *         description: Unauthorized
  *         content:
@@ -207,23 +218,4 @@ router.post("/logout", logout);
  */
 router.get("/me", auth, getUser);
 
-/**
- * @swagger
- * components:
- *  schemas:
- *    User:
- *      type:
- *        object
- *      properties:
- *        id:
- *          type: integer
- *          example: 1
- *        email:
- *          type: string
- *          example: mentee@email.com
- *        role:
- *          type: string
- *          enum: [Admin, Mentor, Mentee]
- *          example: Mentee
- */
 export default router;

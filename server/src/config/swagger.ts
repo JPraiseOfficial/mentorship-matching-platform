@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import { schemas } from "./schemas";
 
 const swaggerOptions = {
   definition: {
@@ -48,17 +49,7 @@ const swaggerOptions = {
           name: "jwtToken",
         },
       },
-      schemas: {
-        ErrorResponse: {
-          type: "object",
-          properties: {
-            message: {
-              type: "string",
-              example: "Something went wrong. Please, try again later",
-            },
-          },
-        },
-      },
+      schemas,
     },
   },
   apis: ["./src/routes/*.ts"],

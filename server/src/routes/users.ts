@@ -37,6 +37,10 @@ const router = Router();
  *                   $ref: '#/components/schemas/UserProfile'
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
  *       401:
  *         description: Unauthorized
  *         content:
@@ -136,6 +140,15 @@ router.get("/me", auth, getUserProfile);
  *                   message: Profile not found
  *       400:
  *         description: Invalid ID parameter
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
+ *             examples:
+ *               WrongID:
+ *                 value:
+ *                   errors:
+ *                     id: [ID must be a number]
  *       401:
  *         description: Unauthorized
  *         content:
@@ -183,6 +196,10 @@ router.get("/:id", auth, getAnyProfile);
  *                   $ref: '#/components/schemas/UserProfile'
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
  *       404:
  *         description: User has no profile
  *         content:
@@ -213,60 +230,3 @@ router.get("/:id", auth, getAnyProfile);
 router.put("/me/profile", auth, updateProfile);
 
 export default router;
-
-// Swagger Components
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     CreateProfileDto:
- *       type: object
- *       required:
- *         - name
- *         - bio
- *         - skills
- *         - goals
- *       properties:
- *         name:
- *           type: string
- *           example: Jane Doe
- *         bio:
- *           type: string
- *           example: Experienced software engineer and mentor.
- *         skills:
- *           type: array
- *           items:
- *             type: string
- *           example: ["JavaScript", "React", "Node.js"]
- *         goals:
- *           type: string
- *           example: To help mentees grow their careers in tech.
- *     UserProfile:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *           example: 1
- *         name:
- *           type: string
- *           example: Jane Doe
- *         bio:
- *           type: string
- *           example: Experienced software engineer and mentor.
- *         skills:
- *           type: array
- *           items:
- *             type: string
- *           example: ["JavaScript", "React", "Node.js"]
- *         goals:
- *           type: string
- *           example: To help mentees grow their careers in tech.
- *         role:
- *           type: string
- *           enum: [Admin, Mentor, Mentee]
- *           example: Mentor
- *         userId:
- *           type: integer
- *           example: 1
- */

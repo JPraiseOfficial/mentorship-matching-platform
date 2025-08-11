@@ -3,7 +3,10 @@ import { z } from "zod";
 // DTO for register user
 export const createUserDto = z.object({
   email: z.string().email(),
-  password: z.string().min(6).max(100),
+  password: z
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .max(100),
   role: z.enum(["Admin", "Mentor", "Mentee"]),
 });
 export type createUserDtoType = z.infer<typeof createUserDto>;
@@ -41,16 +44,12 @@ export const createAvailabilityDto = z.object({
     "Saturday",
     "Sunday",
   ]),
-  startTime: z
-    .string()
-    .regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, {
-      message: "Time must be valid in HH:mm:ss format",
-    }),
-  endTime: z
-    .string()
-    .regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, {
-      message: "Time must be valid in HH:mm:ss format",
-    }),
+  startTime: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, {
+    message: "Time must be valid in HH:mm:ss format",
+  }),
+  endTime: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, {
+    message: "Time must be valid in HH:mm:ss format",
+  }),
 });
 export type createAvailabilityDtoType = z.infer<typeof createAvailabilityDto>;
 
@@ -68,16 +67,12 @@ export const updateRequestStatusDto = z.object({
 // DTO to create a new session.
 export const createSessionDto = z.object({
   mentorId: z.number({ invalid_type_error: "ID must be a number" }),
-  date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, {
-      message: "Date must be in YYYY-MM-DD format",
-    }),
-  time: z
-    .string()
-    .regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, {
-      message: "Time must be valid in HH:mm:ss format",
-    }),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
+    message: "Date must be in YYYY-MM-DD format",
+  }),
+  time: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, {
+    message: "Time must be valid in HH:mm:ss format",
+  }),
 });
 export type createSessionDto = z.infer<typeof createSessionDto>;
 
