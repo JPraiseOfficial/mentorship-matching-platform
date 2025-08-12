@@ -87,6 +87,14 @@ router.post("/newprofile", auth, createProfile);
  *               $ref: '#/components/schemas/UserProfile'
  *       404:
  *         description: User has no profile
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *             examples:
+ *               NotFound:
+ *                 value:
+ *                   message: Profile not found
  *       401:
  *         description: Unauthorized
  *         content:
