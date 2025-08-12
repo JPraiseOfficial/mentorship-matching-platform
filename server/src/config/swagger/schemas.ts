@@ -117,6 +117,4 @@ export const schemas = {
       },
     },
   },
-
-  // Add other schemas here...
 };

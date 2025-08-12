@@ -1,5 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
-import { schemas } from "./schemas";
+import { schemas } from "./schemas.js";
 
 const swaggerOptions = {
   definition: {
