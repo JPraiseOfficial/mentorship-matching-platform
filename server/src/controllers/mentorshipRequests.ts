@@ -89,7 +89,7 @@ export const deleteRequest = async (req: Request, res: Response) => {
     const requestId = validateParam.data.id;
 
     await services.deleteRequest(requestId);
-    res.status(204).json({ message: "Request successfully deleted" });
+    res.status(204).send();
   } catch (error) {
     if (error instanceof NotFoundError) {
       res.status(error.statusCode).json({ message: error.message });
