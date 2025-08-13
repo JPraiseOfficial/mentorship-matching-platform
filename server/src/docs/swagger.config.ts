@@ -1,5 +1,7 @@
 import swaggerJSDoc from "swagger-jsdoc";
-import { schemas } from "./schemas.js";
+import { userSchemas } from "./schemas/user.schema.js";
+import { responseSchemas } from "./schemas/responses.schema.js";
+import { mentorshipRequestSchemas } from "./schemas/mentorshipRequests.schema.js";
 
 const swaggerOptions = {
   definition: {
@@ -49,7 +51,11 @@ const swaggerOptions = {
           name: "jwtToken",
         },
       },
-      schemas,
+      schemas: {
+        ...userSchemas,
+        ...responseSchemas,
+        ...mentorshipRequestSchemas,
+      },
     },
   },
   apis: ["./src/routes/*.ts"],
