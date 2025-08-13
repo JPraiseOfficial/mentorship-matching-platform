@@ -2,6 +2,7 @@ import swaggerJSDoc from "swagger-jsdoc";
 import { userSchemas } from "./schemas/user.schema.js";
 import { responseSchemas } from "./schemas/responses.schema.js";
 import { mentorshipRequestSchemas } from "./schemas/mentorshipRequests.schema.js";
+import { AvailabilitySchemas } from "./schemas/mentorAvailabilty.schema.js";
 
 const swaggerOptions = {
   definition: {
@@ -55,6 +56,7 @@ const swaggerOptions = {
         ...userSchemas,
         ...responseSchemas,
         ...mentorshipRequestSchemas,
+        ...AvailabilitySchemas,
       },
     },
   },
