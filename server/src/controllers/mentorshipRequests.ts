@@ -26,7 +26,7 @@ export const createRequest = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("Error creating mentorship request:", error);
-    res.status(500).json({ error: "Failed to create mentorship request" });
+    res.status(500).json({ message: "Failed to create mentorship request" });
   }
 };
 
@@ -36,7 +36,7 @@ export const getSentRequests = async (req: Request, res: Response) => {
     res.status(200).json(requests);
   } catch (error) {
     console.error("Error fetching sent requests:", error);
-    res.status(500).json({ error: "Failed to fetch sent requests" });
+    res.status(500).json({ message: "Failed to fetch sent requests" });
   }
 };
 
@@ -46,7 +46,7 @@ export const getReceivedRequests = async (req: Request, res: Response) => {
     res.status(200).json(requests);
   } catch (error) {
     console.error("Error fetching received requests:", error);
-    res.status(500).json({ error: "Failed to fetch received requests" });
+    res.status(500).json({ message: "Failed to fetch received requests" });
   }
 };
 
@@ -74,7 +74,7 @@ export const updateRequestStatus = async (req: Request, res: Response) => {
     res.status(200).json(updatedRequest);
   } catch (error) {
     console.error("Error updating request status:", error);
-    res.status(500).json({ error: "Failed to update request status" });
+    res.status(500).json({ message: "Failed to update request status" });
   }
 };
 
@@ -96,7 +96,7 @@ export const deleteRequest = async (req: Request, res: Response) => {
       return;
     }
     console.error("Error deleting request:", error);
-    res.status(500).json({ error: "Failed to delete request" });
+    res.status(500).json({ message: "Failed to delete request" });
     return;
   }
 };

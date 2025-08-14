@@ -18,11 +18,9 @@ export const createAvailability = async (req: Request, res: Response) => {
       .json({ message: "Successfully created availability", availability });
   } catch (error) {
     console.error("Error creating availability:", error);
-    res
-      .status(500)
-      .json({
-        error: "Failed to create availability. Please, try again later.",
-      });
+    res.status(500).json({
+      message: "Failed to create availability. Please, try again later.",
+    });
   }
 };
 
@@ -48,11 +46,9 @@ export const getAvailability = async (req: Request, res: Response) => {
       .json({ message: "Successfully fetched availability", availability });
   } catch (error) {
     console.error("Error fetching availability:", error);
-    res
-      .status(500)
-      .json({
-        error: "Failed to fetch availability. Please, try again later.",
-      });
+    res.status(500).json({
+      message: "Failed to fetch availability. Please, try again later.",
+    });
   }
 };
 
@@ -73,11 +69,9 @@ export const deleteAvailability = async (req: Request, res: Response) => {
     }
 
     console.error("Error deleting availability:", error);
-    res
-      .status(500)
-      .json({
-        error: "Failed to delete availability. Please, try again later.",
-      });
+    res.status(500).json({
+      message: "Failed to delete availability. Please, try again later.",
+    });
   }
 };
 
@@ -88,10 +82,8 @@ export const deleteAllAvailability = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Successfully deleted all availability" });
   } catch (error) {
     console.error("Error deleting all availability:", error);
-    res
-      .status(500)
-      .json({
-        error: "Failed to delete all availability. Please, try again later.",
-      });
+    res.status(500).json({
+      message: "Failed to delete all availability. Please, try again later.",
+    });
   }
 };
