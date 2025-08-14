@@ -29,7 +29,7 @@ export const createSession = async (req: Request, res: Response) => {
     console.error("Error in creating session:", error);
     res
       .status(500)
-      .json({ error: "Failed to schedule session. Please, try again later" });
+      .json({ message: "Failed to schedule session. Please, try again later" });
   }
 };
 
@@ -40,7 +40,7 @@ export const getMentorSession = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error fetching mentor session:", error);
     res.status(500).json({
-      error: "Failed to fetch mentor sessions. Please, try again later",
+      message: "Failed to fetch mentor sessions. Please, try again later",
     });
   }
 };
@@ -52,7 +52,7 @@ export const getMenteeSessions = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error fetching mentee sessions:", error);
     res.status(500).json({
-      error: "Failed to fetch mentee sessions. Please, try again later",
+      message: "Failed to fetch mentee sessions. Please, try again later",
     });
   }
 };
@@ -77,10 +77,13 @@ export const updateFeedbackAndRating = async (req: Request, res: Response) => {
     const updatedRequest = await services.addSessionFeedback(sessionId, {
       ...data,
     });
-    res.status(200).json(updatedRequest);
+    res.status(200).json({
+      message: "Feedback and Rating added successfully",
+      updatedRequest,
+    });
   } catch (error) {
     console.error("Error updating request status:", error);
-    res.status(500).json({ error: "Failed to update request status" });
+    res.status(500).json({ message: "Failed to update request status" });
   }
 };
 
@@ -94,14 +97,14 @@ export const deleteSession = async (req: Request, res: Response) => {
 
     const sessionId = validateParam.data.id;
     await services.deletesession(sessionId);
-    res.status(204).json({ message: "Session deleted successfully" });
+    res.status(204).send();
   } catch (error) {
     if (error instanceof NotFoundError) {
       res.status(error.statusCode).json({ message: error.message });
       return;
     }
     console.error("Error deleting session:", error);
-    res.status(500).json({ error: "Failed to delete session" });
+    res.status(500).json({ message: "Failed to delete session" });
     return;
   }
 };
