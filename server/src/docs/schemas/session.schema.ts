@@ -19,23 +19,6 @@ export const sessionSchemas = {
       },
     },
   },
-  UpdateSessionFeedbackDto: {
-    type: "object",
-    required: ["rating", "feedback"],
-    properties: {
-      rating: {
-        type: "integer",
-        minimum: 1,
-        maximum: 5,
-        example: 5,
-      },
-      feedback: {
-        type: "string",
-        minLength: 20,
-        example: "The session was very helpful and insightful.",
-      },
-    },
-  },
   BaseSession: {
     type: "object",
     properties: {
