@@ -10,7 +10,7 @@ import { NotFoundError } from "../errors/customErrors.js";
 export const createRequest = async (req: Request, res: Response) => {
   const validateParams = MentorshipRequestParam.safeParse(req.params);
   if (!validateParams.success) {
-    res.status(400).json({ error: validateParams.error.issues });
+    res.status(400).json({ error: validateParams.error.flatten().fieldErrors });
     return;
   }
 
@@ -55,12 +55,14 @@ export const updateRequestStatus = async (req: Request, res: Response) => {
     // Validate params and body
     const validateParam = getResourceByIdParam.safeParse(req.params);
     if (!validateParam.success) {
-      res.status(400).json({ error: validateParam.error.issues });
+      res
+        .status(400)
+        .json({ error: validateParam.error.flatten().fieldErrors });
       return;
     }
     const validateBody = updateRequestStatusDto.safeParse(req.body);
     if (!validateBody.success) {
-      res.status(400).json({ error: validateBody.error.issues });
+      res.status(400).json({ error: validateBody.error.flatten().fieldErrors });
       return;
     }
 
@@ -82,7 +84,9 @@ export const deleteRequest = async (req: Request, res: Response) => {
   try {
     const validateParam = getResourceByIdParam.safeParse(req.params);
     if (!validateParam.success) {
-      res.status(400).json({ error: validateParam.error.issues });
+      res
+        .status(400)
+        .json({ error: validateParam.error.flatten().fieldErrors });
       return;
     }
 

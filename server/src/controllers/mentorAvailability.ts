@@ -6,7 +6,7 @@ import { NotFoundError } from "../errors/customErrors.js";
 export const createAvailability = async (req: Request, res: Response) => {
   const validate = createAvailabilityDto.safeParse(req.body);
   if (!validate.success) {
-    res.status(400).json({ error: validate.error.errors });
+    res.status(400).json({ error: validate.error.flatten().fieldErrors });
     return;
   }
 
@@ -31,7 +31,7 @@ export const getAvailability = async (req: Request, res: Response) => {
   if (req.params.id) {
     const validate = getResourceByIdParam.safeParse(req.params);
     if (!validate.success) {
-      res.status(400).json({ error: validate.error.errors });
+      res.status(400).json({ error: validate.error.flatten().fieldErrors });
       return;
     }
     user = validate.data.id;
@@ -55,7 +55,7 @@ export const getAvailability = async (req: Request, res: Response) => {
 export const deleteAvailability = async (req: Request, res: Response) => {
   const validate = getResourceByIdParam.safeParse(req.params);
   if (!validate.success) {
-    res.status(400).json({ error: validate.error.errors });
+    res.status(400).json({ error: validate.error.flatten().fieldErrors });
     return;
   }
 

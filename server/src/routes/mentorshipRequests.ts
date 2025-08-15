@@ -206,6 +206,21 @@ router.get("/received", auth, authorize("Mentor"), getReceivedRequests);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/MentorMentorshipRequest'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
+ *             examples:
+ *               WrongID:
+ *                 value:
+ *                   errors:
+ *                     id: [ID must be a number]
+ *               WrongEnum:
+ *                 value:
+ *                   errors:
+ *                     status: [status should be Accepted or Rejected]
  *       401:
  *         description: Unauthorized
  *         content:

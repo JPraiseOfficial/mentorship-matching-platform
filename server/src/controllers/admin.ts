@@ -19,12 +19,12 @@ export const getAllUsers = async (req: Request, res: Response) => {
 export const updateUserRole = async (req: Request, res: Response) => {
   const validateParam = getResourceByIdParam.safeParse(req.params);
   if (!validateParam.success) {
-    res.status(400).json(validateParam.error.issues);
+    res.status(400).json(validateParam.error.flatten().fieldErrors);
     return;
   }
   const validatedBody = updateUserRoleDTO.safeParse(req.body);
   if (!validatedBody.success) {
-    res.status(400).json(validatedBody.error.issues);
+    res.status(400).json(validatedBody.error.flatten().fieldErrors);
     return;
   }
 

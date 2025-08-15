@@ -121,10 +121,24 @@ router.post("/register", auth, authorize("Admin"), register);
  *               email:
  *                 type: string
  *                 format: email
- *                 example: mentee@email.com
  *               password:
  *                 type: string
- *                 example: mentee123
+ *           examples:
+ *             MenteeExample:
+ *               summary: Login as a Mentee
+ *               value:
+ *                 email: mentee@email.com
+ *                 password: mentee123
+ *             MentorExample:
+ *               summary: Login as a Mentor
+ *               value:
+ *                 email: mentor@email.com
+ *                 password: mentor123
+ *             AdminExample:
+ *               summary: Login as an Admin
+ *               value:
+ *                 email: admin@email.com
+ *                 password: admin123
  *     responses:
  *       200:
  *         description: Login successful
