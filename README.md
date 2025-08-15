@@ -9,7 +9,7 @@ The Mentorship Matching Platform is a full-stack web application that helps incu
 🌐 **Frontend:** [https://mentorship-matching-platform-tau.vercel.app/login](https://mentorship-matching-platform-tau.vercel.app/login)  
 🔗 **Backend API:** [https://mentorship-matching-platform-rxo7.onrender.com/](https://mentorship-matching-platform-rxo7.onrender.com/)
 
-📖 **API Docs (Swagger):** [View here](https://yourapiurl.com/api/docs)
+📖 **API Docs (Swagger):** [View here](https://mentorship-matching-platform-rxo7.onrender.com/api/docs)
 
 ---
 
@@ -84,7 +84,7 @@ The Mentorship Matching Platform is a full-stack web application that helps incu
 | GET    | `/admin/users`           | Admin: view all users         |
 | PUT    | `/admin/users/:id/role`  | Admin: change user role       |
 
-Full API reference is available in the [API Docs](https://yourapiurl.com/api/docs).
+Full API reference is available in the [API Docs](https://mentorship-matching-platform-rxo7.onrender.com/api/docs).
 
 ---
 
