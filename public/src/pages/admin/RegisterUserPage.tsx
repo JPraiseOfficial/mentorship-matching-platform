@@ -1,4 +1,4 @@
-import AdminSidebar from "../../components/AdminSidebar";
+import AdminSidebar from "../../components/Sidebar/AdminSidebar";
 import RegisterUser from "../../components/RegisterUser";
 
 const RegisterUserPage = () => {
