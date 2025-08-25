@@ -5,6 +5,7 @@ import {
   getSentRequests,
   updateRequestStatus,
   deleteRequest,
+  getAcceptedMentees,
 } from "../controllers/mentorshipRequests.js";
 import { auth } from "../middleware/auth.js";
 import { authorize } from "../middleware/authorise.js";
@@ -249,6 +250,52 @@ router.get("/received", auth, authorize("Mentor"), getReceivedRequests);
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.patch("/:id/status", auth, authorize("Mentor"), updateRequestStatus);
+
+/**
+ * @swagger
+ * /api/requests/accepted:
+ *   get:
+ *     summary: Get all mentees accepted by the current mentor
+ *     tags: [Mentor]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: List of current mentees accepted by mentor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/UserProfile'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *             examples:
+ *               Unauthorised:
+ *                 value:
+ *                   message: Unauthorised user
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *             examples:
+ *               Forbidden:
+ *                 value:
+ *                   message: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+router.get("/accepted", auth, authorize("Mentor"), getAcceptedMentees);
 
 /**
  * @swagger

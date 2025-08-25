@@ -4,6 +4,7 @@ import {
   createMentorshipRequest,
   MenteeMentorshipRequest,
   MentorMentorshipRequest,
+  UserProfile,
 } from "../types/types.js";
 import { NotFoundError } from "../errors/customErrors.js";
 
@@ -97,6 +98,24 @@ export const updateRequestStatus = async (
     createdAt: updatedRequest.createdAt,
   };
   return updatedRequestData;
+};
+
+export const getAcceptedMentees = async (
+  mentorId: number
+): Promise<UserProfile[]> => {
+  const mentees = await prisma.mentorshipRequest.findMany({
+    where: { mentorId, status: "Accepted" },
+    include: { mentee: { include: { profile: true } } },
+  });
+  const response = mentees.map((mentee) => ({
+    id: mentee.id,
+    userId: mentee.menteeId,
+    name: mentee.mentee.profile?.name,
+    bio: mentee.mentee.profile?.bio,
+    skills: mentee.mentee.profile?.skills,
+    goals: mentee.mentee.profile?.goals,
+  }));
+  return response;
 };
 
 export const deleteRequest = async (requestId: number): Promise<void> => {

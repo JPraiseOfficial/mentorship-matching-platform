@@ -1,27 +1,27 @@
-import { JwtPayload } from 'jsonwebtoken';
-import { RequestStatus } from '@prisma/client';
+import { JwtPayload } from "jsonwebtoken";
+import { RequestStatus } from "@prisma/client";
 
 export enum Role {
-  Admin = 'Admin',
-  Mentor = 'Mentor',
-  Mentee = 'Mentee',
+  Admin = "Admin",
+  Mentor = "Mentor",
+  Mentee = "Mentee",
 }
 
 export enum Day {
-  Monday = 'Monday',
-  Tuesday = 'Tuesday',
-  Wednesday = 'Wednesday',
-  Thursday = 'Thursday',
-  Friday = 'Friday',
-  Saturday = 'Saturday',
-  Sunday = 'Sunday',
+  Monday = "Monday",
+  Tuesday = "Tuesday",
+  Wednesday = "Wednesday",
+  Thursday = "Thursday",
+  Friday = "Friday",
+  Saturday = "Saturday",
+  Sunday = "Sunday",
 }
 
 export interface UserResponse {
   id: number;
   email: string;
   role: Role;
-};
+}
 
 export interface MyJwtPayload extends JwtPayload {
   id: string;
@@ -30,15 +30,15 @@ export interface MyJwtPayload extends JwtPayload {
 
 export interface UserProfile {
   id: number;
-  name: string;
-  bio: string;
-  skills: string[];
-  goals: string;
+  name: string | undefined;
+  bio: string | undefined;
+  skills: string[] | undefined;
+  goals: string | undefined;
   userId: number;
 }
 
 export interface fullUserProfile extends UserProfile {
-  role: string
+  role: string;
 }
 
 export interface Availability {
@@ -62,7 +62,7 @@ export interface MenteeMentorshipRequest {
     bio: string | undefined;
     skills: string[] | undefined;
     goals: string | undefined;
-  } 
+  };
   status: RequestStatus;
   createdAt: Date;
 }
@@ -75,7 +75,7 @@ export interface MentorMentorshipRequest {
     bio: string | undefined;
     skills: string[] | undefined;
     goals: string | undefined;
-  } 
+  };
   status: RequestStatus;
   createdAt: Date;
 }
@@ -96,27 +96,26 @@ interface Session {
   feedback?: string | null;
   rating?: number | null;
   createdAt: Date;
-
 }
 export interface MenteeSession extends Session {
   mentor: {
-    name?: string,
-    skills?: string[],
-  }
+    name?: string;
+    skills?: string[];
+  };
 }
 
 export interface MentorSession extends Session {
   mentee: {
-    name?: string,
-    bio?: string,
-    skills?: string[],
-  }
+    name?: string;
+    bio?: string;
+    skills?: string[];
+  };
 }
 
 // Admin Types
 export interface GetAllUsersType {
-    id: number,
-    name: String | undefined,
-    email: String,
-    role: Role,
+  id: number;
+  name: String | undefined;
+  email: String;
+  role: Role;
 }

@@ -80,6 +80,16 @@ export const updateRequestStatus = async (req: Request, res: Response) => {
   }
 };
 
+export const getAcceptedMentees = async (req: Request, res: Response) => {
+  try {
+    const mentees = await services.getAcceptedMentees(req.user!.id);
+    res.status(200).json(mentees);
+  } catch (error) {
+    console.error("Error fetching all mentees by mentor:", error);
+    res.status(500).json({ message: "Failed to fetch mentees" });
+  }
+};
+
 export const deleteRequest = async (req: Request, res: Response) => {
   try {
     const validateParam = getResourceByIdParam.safeParse(req.params);
