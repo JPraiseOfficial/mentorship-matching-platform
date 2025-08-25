@@ -4,7 +4,7 @@ import LogoutButton from "../Buttons/LogoutButton";
 const MenteeSidebar = () => {
   return (
     <div className="bg-dark text-white p-3 vh-100">
-      <h4 className="text-center mb-4">Admin Panel</h4>
+      <h4 className="text-center mb-4">Mentee Panel</h4>
       <ul className="nav flex-column">
         <li className="nav-item mb-2">
           <Link to="/dashboard" className="nav-link text-white">
@@ -24,6 +24,11 @@ const MenteeSidebar = () => {
         <li className="nav-item mb-2">
           <Link to="/sessions" className="nav-link text-white">
             Sessions
+          </Link>
+        </li>
+        <li className="nav-item mb-2">
+          <Link to="/profile" className="nav-link text-white">
+            My Profile
           </Link>
         </li>
       </ul>
