@@ -10,8 +10,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await API.get("auth/me");
-        setUser(res.data);
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        } else {
+          const res = await API.get("auth/me");
+          setUser(res.data);
+        }
       } catch (error) {
         console.log("Error fetching User:", error);
         setUser(null);
@@ -27,15 +32,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const res = await API.get("/auth/me");
     setUser(res.data);
     const profile = await getProfile();
-    setUser((prevUser) => {
-      if (!prevUser) return prevUser;
-      return { ...prevUser, name: profile.name };
-    });
+    const currentUser = { ...res.data, name: profile.name || null };
+    setUser(currentUser);
+    localStorage.setItem("user", JSON.stringify(currentUser));
   };
 
   const logout = async () => {
     await API.post("/auth/logout", {});
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   return (
