@@ -8,7 +8,7 @@ import { AuthProvider } from "./auth/AuthProvider";
 import Unauthorized from "./pages/Unauthorised";
 import { UserRoute, RoleRoute } from "./auth/ProtectRoute";
 import ProfilePage from "./pages/ProfilePage";
-import MenteeDashboardPage from "./pages/Mentee/MenteeDashboard";
+import Dashboard from "./pages/Dashboard";
 
 const App: React.FC = () => {
   return (
@@ -35,9 +35,9 @@ const App: React.FC = () => {
               <Route path="/register" element={<RegisterUserPage />} />
             </Route>
 
-            {/* Mentee Routes */}
-            <Route element={<RoleRoute allowedRoles={["Mentee"]} />}>
-              <Route path="/dashboard" element={<MenteeDashboardPage />} />
+            {/* Mentee and Mentor Routes */}
+            <Route element={<RoleRoute allowedRoles={["Mentee", "Mentor"]} />}>
+              <Route path="/dashboard" element={<Dashboard />} />
             </Route>
           </Routes>
         </div>

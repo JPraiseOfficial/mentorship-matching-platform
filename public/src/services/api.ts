@@ -1,5 +1,6 @@
 import axios from "axios";
 import type {
+  Mentee,
   ProfileFormData,
   RegisterFormData,
   Role,
@@ -42,7 +43,13 @@ export const getOthersProfile = async (id: number): Promise<UserProfile> => {
   return response.data;
 };
 
-// ADMIN ROUTES
+// MENTOR APIS
+export const getAllMentees = async (): Promise<Mentee[]> => {
+  const response = await API.get("/requests/accepted");
+  return response.data;
+};
+
+// ADMIN APIS
 export const getAllUsers = async (): Promise<User[]> => {
   const response = await API.get("/admin/users");
   return response.data;

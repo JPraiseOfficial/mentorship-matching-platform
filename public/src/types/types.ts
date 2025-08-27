@@ -14,6 +14,10 @@ export interface ProfileFormData {
   goals: string;
 }
 
+export interface Mentee extends ProfileFormData {
+  id: number;
+  userId: number;
+}
 export interface UserProfile extends ProfileFormData {
   role: Role;
 }
