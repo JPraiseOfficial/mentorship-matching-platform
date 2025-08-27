@@ -142,6 +142,10 @@ const MentorDashboard = () => {
               <tr>
                 <td colSpan={5}>Loading mentees...</td>
               </tr>
+            ) : mentees.length == 0 ? (
+              <tr>
+                <td colSpan={5}>You have no mentees</td>
+              </tr>
             ) : (
               mentees.map((mentee, idx) => (
                 <MenteeRows
