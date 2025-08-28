@@ -41,6 +41,13 @@ export interface fullUserProfile extends UserProfile {
   role: string;
 }
 
+export interface MentorResponse {
+  id: number;
+  name: string | undefined;
+  bio: string | undefined;
+  skills: string[] | undefined;
+}
+
 export interface Availability {
   id: number;
   day: Day;

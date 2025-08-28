@@ -1,7 +1,11 @@
 import { prisma } from "../config/prisma.js";
 import { createProfileDtoType } from "../dtos/dtos.js";
 import { NotFoundError, ResourceExistsError } from "../errors/customErrors.js";
-import { fullUserProfile, UserProfile } from "../types/types.js";
+import {
+  fullUserProfile,
+  MentorResponse,
+  UserProfile,
+} from "../types/types.js";
 
 // Function to create a new profile
 export const createProfile = async (
@@ -64,4 +68,18 @@ export const updateProfile = async (
     },
   });
   return updatedProfile;
+};
+
+export const getAllMentors = async (): Promise<MentorResponse[]> => {
+  const mentors = await prisma.user.findMany({
+    where: { role: "Mentor" },
+    include: { profile: true },
+  });
+  const res = mentors.map((mentor) => ({
+    id: mentor.id,
+    name: mentor.profile?.name,
+    bio: mentor.profile?.bio,
+    skills: mentor.profile?.skills,
+  }));
+  return res;
 };

@@ -1,11 +1,13 @@
 import { Router } from "express";
 import {
   createProfile,
+  getAllMentors,
   getAnyProfile,
   getUserProfile,
   updateProfile,
 } from "../controllers/users.js";
 import { auth } from "../middleware/auth.js";
+import { authorize } from "../middleware/authorise.js";
 
 const router = Router();
 
@@ -113,6 +115,67 @@ router.post("/newprofile", auth, createProfile);
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get("/me", auth, getUserProfile);
+
+/**
+ * @swagger
+ * /api/users/mentor:
+ *   get:
+ *     summary: Get all mentors (Mentee only)
+ *     tags: [Mentee]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Successfully fetched all mentors
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   name:
+ *                     type: string
+ *                     example: "John Doe"
+ *                   bio:
+ *                     type: string
+ *                     example: "Experienced software engineer and mentor."
+ *                   skills:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                     example: ["JavaScript", "React", "Node.js"]
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *             examples:
+ *               Unauthorised:
+ *                 value:
+ *                   message: Unauthorised user
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *             examples:
+ *               Forbidden:
+ *                 value:
+ *                   message: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+router.get("/mentor", auth, authorize("Mentee"), getAllMentors);
 
 /**
  * @swagger

@@ -91,3 +91,16 @@ export const updateProfile = async (req: Request, res: Response) => {
     res.status(500).json({ message: "An unexpected error occurred" });
   }
 };
+
+export const getAllMentors = async (req: Request, res: Response) => {
+  try {
+    const mentors = await services.getAllMentors();
+    res.status(200).json(mentors);
+  } catch (error) {
+    console.error("Failed to fetch all mentors", error);
+    res
+      .status(500)
+      .json({ error: "Error fetching all mentors. Please, try again later." });
+    return;
+  }
+};

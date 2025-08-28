@@ -23,10 +23,8 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
       return;
     }
     console.error("Error Logging in", error);
-    res
-      .status(500)
-      .json({
-        message: "An Unexpected error occured, please, try again later.",
-      });
+    res.status(500).json({
+      message: "An Unexpected error occured, please, try again later.",
+    });
   }
 };
