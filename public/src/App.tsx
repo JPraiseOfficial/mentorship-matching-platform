@@ -9,6 +9,7 @@ import Unauthorized from "./pages/Unauthorised";
 import { UserRoute, RoleRoute } from "./auth/ProtectRoute";
 import ProfilePage from "./pages/ProfilePage";
 import Dashboard from "./pages/Dashboard";
+import MentorPage from "./pages/Mentors";
 
 const App: React.FC = () => {
   return (
@@ -38,6 +39,11 @@ const App: React.FC = () => {
             {/* Mentee and Mentor Routes */}
             <Route element={<RoleRoute allowedRoles={["Mentee", "Mentor"]} />}>
               <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
+
+            {/* Mentee only Routes */}
+            <Route element={<RoleRoute allowedRoles={["Mentee"]} />}>
+              <Route path="/mentors" element={<MentorPage />} />
             </Route>
           </Routes>
         </div>

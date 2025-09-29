@@ -42,7 +42,7 @@ export interface fullUserProfile extends UserProfile {
 }
 
 export interface MentorResponse {
-  id: number;
+  mentorId: number;
   name: string | undefined;
   bio: string | undefined;
   skills: string[] | undefined;

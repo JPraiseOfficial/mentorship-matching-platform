@@ -1,6 +1,7 @@
 import axios from "axios";
 import type {
   Mentee,
+  Mentor,
   ProfileFormData,
   RegisterFormData,
   Role,
@@ -40,6 +41,12 @@ export const updateProfile = async (
 
 export const getOthersProfile = async (id: number): Promise<UserProfile> => {
   const response = await API.get(`/users/${id}`);
+  return response.data;
+};
+
+// MENTEE APIS
+export const getAllMentors = async (): Promise<Mentor[]> => {
+  const response = await API.get("/users/mentor");
   return response.data;
 };
 

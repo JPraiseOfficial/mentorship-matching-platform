@@ -18,6 +18,9 @@ export interface Mentee extends ProfileFormData {
   id: number;
   userId: number;
 }
+
+export type Mentor = { mentorId: number } & Omit<ProfileFormData, "goals">;
+
 export interface UserProfile extends ProfileFormData {
   role: Role;
 }

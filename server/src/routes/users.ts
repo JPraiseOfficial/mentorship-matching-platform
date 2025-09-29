@@ -134,7 +134,7 @@ router.get("/me", auth, getUserProfile);
  *               items:
  *                 type: object
  *                 properties:
- *                   id:
+ *                   mentorId:
  *                     type: integer
  *                     example: 1
  *                   name:

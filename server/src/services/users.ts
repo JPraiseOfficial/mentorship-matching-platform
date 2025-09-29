@@ -72,11 +72,18 @@ export const updateProfile = async (
 
 export const getAllMentors = async (): Promise<MentorResponse[]> => {
   const mentors = await prisma.user.findMany({
-    where: { role: "Mentor" },
+    where: {
+      role: "Mentor",
+      profile: {
+        is: {
+          name: { not: "" },
+        },
+      },
+    },
     include: { profile: true },
   });
   const res = mentors.map((mentor) => ({
-    id: mentor.id,
+    mentorId: mentor.id,
     name: mentor.profile?.name,
     bio: mentor.profile?.bio,
     skills: mentor.profile?.skills,
