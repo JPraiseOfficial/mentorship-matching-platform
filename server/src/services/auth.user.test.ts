@@ -17,14 +17,15 @@ jest.mock("bcryptjs", () => ({
   hash: jest.fn().mockResolvedValue("hashedPassword"),
 }));
 
-describe("Create user service", () => {
-  it("should throw error when user email already exists", async () => {
-    const fakeUser: UserResponse = {
-      id: 1,
-      email: "test@email.com",
-      role: Role.Admin,
-    };
+const fakeUser: UserResponse = {
+  id: 1,
+  email: "test@email.com",
+  role: Role.Admin,
+};
 
+// createUser Service Test Suite
+describe("createUser service", () => {
+  it("should throw error when user email already exists", async () => {
     (prisma.user.findUnique as jest.Mock).mockResolvedValue(fakeUser);
 
     await expect(
@@ -66,5 +67,30 @@ describe("Create user service", () => {
       email: "newuser@email.com",
       role: "Mentor",
     });
+  });
+});
+
+// getUser Service Test Suite
+describe("getUser service", () => {
+  it("should return a user when found", async () => {
+    (prisma.user.findUnique as jest.Mock).mockResolvedValue(fakeUser);
+
+    const result = await services.getUser(1);
+
+    expect(prisma.user.findUnique).toHaveBeenCalledWith({
+      where: { id: 1 },
+    });
+
+    expect(result).toEqual({
+      id: 1,
+      email: "test@email.com",
+      role: Role.Admin,
+    });
+  });
+
+  it("should throw Notfound error when user is not found", async () => {
+    (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
+
+    await expect(services.getUser(999)).rejects.toThrow("User not found");
   });
 });
