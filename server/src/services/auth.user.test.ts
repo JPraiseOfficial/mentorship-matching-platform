@@ -1,6 +1,7 @@
 import * as services from "./auth.user.js";
 import { prisma } from "../config/prisma.js";
 import bcrypt from "bcryptjs";
+import { Role, UserResponse } from "../types/types.js";
 
 jest.mock("../config/prisma", () => ({
   prisma: {
@@ -18,11 +19,13 @@ jest.mock("bcryptjs", () => ({
 
 describe("Create user service", () => {
   it("should throw error when user email already exists", async () => {
-    (prisma.user.findUnique as jest.Mock).mockResolvedValue({
+    const fakeUser: UserResponse = {
       id: 1,
       email: "test@email.com",
-      role: "Admin",
-    });
+      role: Role.Admin,
+    };
+
+    (prisma.user.findUnique as jest.Mock).mockResolvedValue(fakeUser);
 
     await expect(
       services.createUser({
@@ -34,12 +37,14 @@ describe("Create user service", () => {
   });
 
   it("should hash password and create user", async () => {
-    (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
-    (prisma.user.create as jest.Mock).mockResolvedValue({
+    const user: UserResponse = {
       id: 1,
       email: "newuser@email.com",
-      role: "Mentor",
-    });
+      role: Role.Mentor,
+    };
+
+    (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
+    (prisma.user.create as jest.Mock).mockResolvedValue(user);
 
     const result = await services.createUser({
       email: "newuser@email.com",
