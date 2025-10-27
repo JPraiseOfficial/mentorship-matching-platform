@@ -1,36 +1,29 @@
-import * as services from "./auth.user.js";
-import { prisma } from "../config/prisma.js";
-import bcrypt from "bcryptjs";
-import { Role, UserResponse } from "../types/types.js";
+import prismaMock from "../tests/mocks/prismaMock.js";
+import bcryptMock from "../tests/mocks/bcryptMock.js";
+import { makeUser, newUser } from "../tests/fixtures/users.js";
 
 jest.mock("../config/prisma", () => ({
-  prisma: {
-    user: {
-      findUnique: jest.fn(),
-      create: jest.fn(),
-    },
-  },
+  prisma: prismaMock,
 }));
+jest.mock("bcryptjs", () => bcryptMock);
 
-jest.mock("bcryptjs", () => ({
-  genSalt: jest.fn().mockResolvedValue("fake-salt"),
-  hash: jest.fn().mockResolvedValue("hashedPassword"),
-}));
+import * as services from "./auth.user.js";
+import { Role } from "../types/types.js";
 
-const fakeUser: UserResponse = {
-  id: 1,
-  email: "test@email.com",
-  role: Role.Admin,
-};
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
+const fakeUser = makeUser();
 
 // createUser Service Test Suite
 describe("createUser service", () => {
   it("should throw error when user email already exists", async () => {
-    (prisma.user.findUnique as jest.Mock).mockResolvedValue(fakeUser);
+    prismaMock.user.findUnique.mockResolvedValue(fakeUser);
 
     await expect(
       services.createUser({
-        email: "test@email.com",
+        email: fakeUser.email,
         password: "123456",
         role: "Admin",
       })
@@ -38,34 +31,30 @@ describe("createUser service", () => {
   });
 
   it("should hash password and create user", async () => {
-    const user: UserResponse = {
-      id: 1,
-      email: "newuser@email.com",
-      role: Role.Mentor,
-    };
+    const createdUser = newUser;
 
-    (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
-    (prisma.user.create as jest.Mock).mockResolvedValue(user);
+    prismaMock.user.findUnique.mockResolvedValue(null);
+    prismaMock.user.create.mockResolvedValue(createdUser);
 
     const result = await services.createUser({
-      email: "newuser@email.com",
+      email: createdUser.email,
       password: "plain_password",
       role: "Mentor",
     });
 
-    expect(bcrypt.genSalt).toHaveBeenCalled;
-    expect(bcrypt.hash).toHaveBeenCalledWith("plain_password", "fake-salt");
-    expect(prisma.user.create).toHaveBeenCalledWith({
+    expect(bcryptMock.genSalt).toHaveBeenCalled();
+    expect(bcryptMock.hash).toHaveBeenCalledWith("plain_password", "fake-salt");
+    expect(prismaMock.user.create).toHaveBeenCalledWith({
       data: {
-        email: "newuser@email.com",
+        email: createdUser.email,
         password: "hashedPassword",
         role: "Mentor",
       },
     });
     expect(result).toEqual({
-      id: 1,
-      email: "newuser@email.com",
-      role: "Mentor",
+      id: createdUser.id,
+      email: createdUser.email,
+      role: Role.Mentor,
     });
   });
 });
@@ -73,23 +62,23 @@ describe("createUser service", () => {
 // getUser Service Test Suite
 describe("getUser service", () => {
   it("should return a user when found", async () => {
-    (prisma.user.findUnique as jest.Mock).mockResolvedValue(fakeUser);
+    prismaMock.user.findUnique.mockResolvedValue(fakeUser);
 
     const result = await services.getUser(1);
 
-    expect(prisma.user.findUnique).toHaveBeenCalledWith({
+    expect(prismaMock.user.findUnique).toHaveBeenCalledWith({
       where: { id: 1 },
     });
 
     expect(result).toEqual({
-      id: 1,
-      email: "test@email.com",
+      id: fakeUser.id,
+      email: fakeUser.email,
       role: Role.Admin,
     });
   });
 
   it("should throw Notfound error when user is not found", async () => {
-    (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
+    prismaMock.user.findUnique.mockResolvedValue(null);
 
     await expect(services.getUser(999)).rejects.toThrow("User not found");
   });
