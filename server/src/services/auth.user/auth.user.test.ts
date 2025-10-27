@@ -1,14 +1,14 @@
-import prismaMock from "../tests/mocks/prismaMock.js";
-import bcryptMock from "../tests/mocks/bcryptMock.js";
-import { makeUser, newUser } from "../tests/fixtures/users.js";
+import prismaMock from "../../tests/mocks/prismaMock.js";
+import bcryptMock from "../../tests/mocks/bcryptMock.js";
+import { makeUser, newUser } from "../../tests/fixtures/users.js";
 
-jest.mock("../config/prisma", () => ({
+jest.mock("../../config/prisma", () => ({
   prisma: prismaMock,
 }));
 jest.mock("bcryptjs", () => bcryptMock);
 
 import * as services from "./auth.user.js";
-import { Role } from "../types/types.js";
+import { Role } from "../../types/types.js";
 
 beforeEach(() => {
   jest.clearAllMocks();

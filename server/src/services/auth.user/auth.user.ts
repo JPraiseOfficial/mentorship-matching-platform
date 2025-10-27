@@ -1,8 +1,11 @@
-import { prisma } from "../config/prisma.js";
+import { prisma } from "../../config/prisma.js";
 import bcrypt from "bcryptjs";
-import { Role, UserResponse } from "../types/types.js";
-import { createUserDtoType } from "../dtos/dtos.js";
-import { NotFoundError, ResourceExistsError } from "../errors/customErrors.js";
+import { Role, UserResponse } from "../../types/types.js";
+import { createUserDtoType } from "../../dtos/dtos.js";
+import {
+  NotFoundError,
+  ResourceExistsError,
+} from "../../errors/customErrors.js";
 
 // This function creates a new user
 export const createUser = async (

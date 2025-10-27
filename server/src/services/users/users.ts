@@ -1,11 +1,14 @@
-import { prisma } from "../config/prisma.js";
-import { createProfileDtoType } from "../dtos/dtos.js";
-import { NotFoundError, ResourceExistsError } from "../errors/customErrors.js";
+import { prisma } from "../../config/prisma.js";
+import { createProfileDtoType } from "../../dtos/dtos.js";
+import {
+  NotFoundError,
+  ResourceExistsError,
+} from "../../errors/customErrors.js";
 import {
   fullUserProfile,
   MentorResponse,
   UserProfile,
-} from "../types/types.js";
+} from "../../types/types.js";
 
 // Function to create a new profile
 export const createProfile = async (

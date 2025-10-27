@@ -1,13 +1,12 @@
-import prismaMock from "../tests/mocks/prismaMock.js";
-import { makeUser, newUser } from "../tests/fixtures/users.js";
+import prismaMock from "../../../tests/mocks/prismaMock.js";
 
-jest.mock("../config/prisma", () => ({
+jest.mock("../../../config/prisma", () => ({
   prisma: prismaMock,
 }));
 
-import * as services from "./users.js";
-import { UserProfile } from "../types/types.js";
-import { createProfileDtoType } from "../dtos/dtos.js";
+import * as services from "../users.js";
+import { UserProfile } from "../../../types/types.js";
+import { createProfileDtoType } from "../../../dtos/dtos.js";
 
 beforeEach(() => {
   jest.clearAllMocks();
