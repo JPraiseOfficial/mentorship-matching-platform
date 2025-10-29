@@ -5,28 +5,14 @@ jest.mock("../../../config/prisma", () => ({
 }));
 
 import * as services from "../users.js";
-import { UserProfile } from "../../../types/types.js";
-import { createProfileDtoType } from "../../../dtos/dtos.js";
+import { mockProfile, newFakeProfile } from "../../../tests/fixtures/users.js";
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
-const fakeProfile: UserProfile = {
-  id: 1,
-  name: "Test User",
-  bio: "Test Bio",
-  skills: ["JavaScript", "TypeScript"],
-  goals: "Test goals",
-  userId: 1,
-};
-
-const createFakeProfile: createProfileDtoType = {
-  name: "Test User",
-  bio: "Test Bio",
-  skills: ["JavaScript", "TypeScript"],
-  goals: "Test goals",
-};
+const fakeProfile = mockProfile;
+const createFakeProfile = newFakeProfile;
 
 // createProfile Test Suites
 describe("createProfile service", () => {
