@@ -10,10 +10,6 @@ jest.mock("bcryptjs", () => bcryptMock);
 import * as services from "./auth.user.js";
 import { Role } from "../../types/types.js";
 
-beforeEach(() => {
-  jest.clearAllMocks();
-});
-
 const fakeUser = makeUser();
 
 // createUser Service Test Suite
