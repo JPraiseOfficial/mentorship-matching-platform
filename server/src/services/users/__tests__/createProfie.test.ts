@@ -5,10 +5,10 @@ jest.mock("../../../config/prisma", () => ({
 }));
 
 import * as services from "../users.js";
-import { mockProfile, newFakeProfile } from "../../../tests/fixtures/users.js";
-
-const fakeProfile = mockProfile;
-const createFakeProfile = newFakeProfile;
+import {
+  fakeProfile,
+  createFakeProfile,
+} from "../../../tests/fixtures/users.js";
 
 // createProfile Test Suites
 describe("createProfile service", () => {

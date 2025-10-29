@@ -1,4 +1,4 @@
-import { makeUser, mockProfile } from "../../../tests/fixtures/users.js";
+import { makeUser, fakeProfile } from "../../../tests/fixtures/users.js";
 import prismaMock from "../../../tests/mocks/prismaMock.js";
 
 jest.mock("../../../config/prisma", () => ({
@@ -7,7 +7,7 @@ jest.mock("../../../config/prisma", () => ({
 
 import * as services from "../users.js";
 
-const fakeProfile = { ...mockProfile, user: makeUser() };
+const apiResponse = { ...fakeProfile, user: makeUser() };
 
 // getProfile Test Suites
 describe("getProfile service", () => {
@@ -21,7 +21,7 @@ describe("getProfile service", () => {
   });
 
   it("should return user profile", async () => {
-    prismaMock.profile.findUnique.mockResolvedValue(fakeProfile);
+    prismaMock.profile.findUnique.mockResolvedValue(apiResponse);
 
     const result = await services.getProfile(fakeProfile.userId);
 
@@ -31,13 +31,13 @@ describe("getProfile service", () => {
     });
 
     expect(result).toEqual({
-      id: fakeProfile.id,
-      name: fakeProfile.name,
-      bio: fakeProfile.bio,
-      skills: fakeProfile.skills,
-      goals: fakeProfile.goals,
-      role: fakeProfile.user.role,
-      userId: fakeProfile.userId,
+      id: apiResponse.id,
+      name: apiResponse.name,
+      bio: apiResponse.bio,
+      skills: apiResponse.skills,
+      goals: apiResponse.goals,
+      role: apiResponse.user.role,
+      userId: apiResponse.userId,
     });
   });
 });
