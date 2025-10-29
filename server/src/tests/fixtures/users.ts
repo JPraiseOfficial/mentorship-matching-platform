@@ -1,5 +1,11 @@
-import { Role, UserProfile, UserResponse } from "../../types/types.js";
+import {
+  MentorResponse,
+  Role,
+  UserProfile,
+  UserResponse,
+} from "../../types/types.js";
 import { createProfileDtoType } from "../../dtos/dtos.js";
+import { Profile, User } from "@prisma/client";
 
 export const makeUser = (overrides: Partial<UserResponse> = {}) => ({
   id: 1,
@@ -39,3 +45,23 @@ export const updatedFakeProfile: UserProfile = {
   ...createUpdatedFakeProfile,
   userId: 1,
 };
+
+const mentor = makeUser({ role: Role.Mentor });
+
+export const mockMentors: (UserResponse & { profile: UserProfile })[] = [
+  {
+    ...mentor,
+    profile: {
+      ...fakeProfile,
+    },
+  },
+];
+
+export const mockMentorResponse: MentorResponse[] = [
+  {
+    mentorId: 1,
+    name: "Test User",
+    bio: "Test Bio",
+    skills: ["JavaScript", "TypeScript"],
+  },
+];
