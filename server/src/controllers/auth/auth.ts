@@ -17,7 +17,7 @@ const generateJwtToken = (userId: number, role: string) => {
 export const login = async (req: Request, res: Response) => {
   const validatedBody = userLoginDto.safeParse(req.body);
   if (!validatedBody.success) {
-    res.status(400).json(validatedBody.error.issues);
+    res.status(400).json(validatedBody.error.flatten().fieldErrors);
     return;
   }
 
