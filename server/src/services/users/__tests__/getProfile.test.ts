@@ -1,4 +1,4 @@
-import { makeUser, fakeProfile } from "../../../tests/fixtures/users.js";
+import { fakeUser, fakeProfile } from "../../../tests/fixtures/users.js";
 import prismaMock from "../../../tests/mocks/prismaMock.js";
 
 jest.mock("../../../config/prisma", () => ({
@@ -7,7 +7,7 @@ jest.mock("../../../config/prisma", () => ({
 
 import * as services from "../users.js";
 
-const apiResponse = { ...fakeProfile, user: makeUser() };
+const apiResponse = { ...fakeProfile, user: fakeUser };
 
 // getProfile Test Suites
 describe("getProfile service", () => {

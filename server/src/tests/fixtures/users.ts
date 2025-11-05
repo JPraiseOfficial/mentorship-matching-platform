@@ -7,12 +7,11 @@ import {
 import { createProfileDtoType } from "../../dtos/dtos.js";
 import { Profile, User } from "@prisma/client";
 
-export const makeUser = (overrides: Partial<UserResponse> = {}) => ({
+export const fakeUser = {
   id: 1,
   email: "test@email.com",
   role: Role.Admin,
-  ...overrides,
-});
+};
 
 export const newUser = {
   id: 2,
@@ -46,7 +45,11 @@ export const updatedFakeProfile: UserProfile = {
   userId: 1,
 };
 
-const mentor = makeUser({ role: Role.Mentor });
+export const mentor = {
+  id: 1,
+  email: "test@email.com",
+  role: Role.Mentor,
+};
 
 export const mockMentors: (UserResponse & { profile: UserProfile })[] = [
   {

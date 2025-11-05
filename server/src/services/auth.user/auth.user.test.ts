@@ -1,6 +1,6 @@
 import prismaMock from "../../tests/mocks/prismaMock.js";
 import bcryptMock from "../../tests/mocks/bcryptMock.js";
-import { makeUser, newUser } from "../../tests/fixtures/users.js";
+import { fakeUser, newUser } from "../../tests/fixtures/users.js";
 
 jest.mock("../../config/prisma", () => ({
   prisma: prismaMock,
@@ -9,8 +9,6 @@ jest.mock("bcryptjs", () => bcryptMock);
 
 import * as services from "./auth.user.js";
 import { Role } from "../../types/types.js";
-
-const fakeUser = makeUser();
 
 // createUser Service Test Suite
 describe("createUser service", () => {
