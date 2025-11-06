@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import * as services from "../../services/auth.user/auth.user.js";
-import { createUserDto } from "../../dtos/dtos.js";
+import * as services from "../../../services/auth.user/auth.user.js";
+import { createUserDto } from "../../../dtos/dtos.js";
 import { z } from "zod";
 import {
   NotFoundError,
   ResourceExistsError,
-} from "../../errors/customErrors.js";
+} from "../../../errors/customErrors.js";
 
 // Function to handle user registration
 export const register = async (req: Request, res: Response) => {
