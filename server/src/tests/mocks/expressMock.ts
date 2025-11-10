@@ -6,6 +6,7 @@ export const mockRequest = (data: Partial<Request> = {}) => {
     params: {},
     query: {},
     cookies: {},
+    user: { id: 1, role: "Admin" }, // Default mock user
     ...data,
   };
 };
