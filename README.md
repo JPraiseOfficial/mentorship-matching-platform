@@ -143,8 +143,6 @@ Follow these steps to run the project locally.
 6.  Visit http://localhost:3000 to access the API  
     Swagger Docs: http://localhost:3000/api/docs
 
----
-
 ## ✨ Contributing
 
 Contributions are welcome!
@@ -154,10 +152,16 @@ Contributions are welcome!
 - Commit your changes
 - Open a pull request
 
+> 📝 **Please Note:**  
+> The **backend** is fully functional and stable.  
+> The **frontend** is still under active development, so some features may be incomplete or in progress.
+
+---
+
 ## 📜 License
 
 This project is licensed under the MIT License. See [LICENSE](./LICENSE) for details.
 
 ## 📞 Contact
 
-Questions? Feedback? Reach out via jimmypraiseofficial@gmail.com.
+Questions? Feedback? Reach out via jimmypraise.dev@gmail.com.
