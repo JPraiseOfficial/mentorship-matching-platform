@@ -22,7 +22,7 @@ describe("authorise middleware", () => {
     req = mockRequestWithoutUser;
     const middleware = authorize("Admin");
 
-    await middleware(req as Request, res as Response, next as NextFunction);
+    middleware(req as Request, res as Response, next as NextFunction);
 
     expect(res.status).toHaveBeenCalledWith(403);
     expect(res.json).toHaveBeenCalledWith({ message: "Forbidden" });
@@ -33,7 +33,7 @@ describe("authorise middleware", () => {
     req = mockRequest({ user: { id: 1, role: "Mentee" } });
     const middleware = authorize("Admin");
 
-    await middleware(req as Request, res as Response, next as NextFunction);
+    middleware(req as Request, res as Response, next as NextFunction);
 
     expect(res.status).toHaveBeenCalledWith(403);
     expect(res.json).toHaveBeenCalledWith({ message: "Forbidden" });
@@ -44,7 +44,7 @@ describe("authorise middleware", () => {
     req = mockRequest({ user: { id: 1, role: "Mentee" } });
     const middleware = authorize("Admin", "Mentors");
 
-    await middleware(req as Request, res as Response, next as NextFunction);
+    middleware(req as Request, res as Response, next as NextFunction);
 
     expect(res.status).toHaveBeenCalledWith(403);
     expect(res.json).toHaveBeenCalledWith({ message: "Forbidden" });
@@ -55,7 +55,7 @@ describe("authorise middleware", () => {
     req = mockRequest({ user: { id: 1, role: "Admin" } });
     const middleware = authorize("Admin");
 
-    await middleware(req as Request, res as Response, next as NextFunction);
+    middleware(req as Request, res as Response, next as NextFunction);
 
     expect(next).toHaveBeenCalled();
   });
@@ -64,7 +64,7 @@ describe("authorise middleware", () => {
     req = mockRequest({ user: { id: 1, role: "Mentor" } });
     const middleware = authorize("Admin", "Mentor");
 
-    await middleware(req as Request, res as Response, next as NextFunction);
+    middleware(req as Request, res as Response, next as NextFunction);
 
     expect(next).toHaveBeenCalled();
   });
