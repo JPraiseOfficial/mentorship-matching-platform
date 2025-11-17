@@ -90,6 +90,10 @@ Full API reference is available in the [API Docs](https://mentorship-matching-pl
 
 ## ⚙️ Local Setup
 
+> 📝 **Please Note:**  
+> The **backend** is fully functional and stable.  
+> The **frontend** is still under development, so some features may be incomplete or in progress.
+
 Follow these steps to run the project locally.
 
 1.  **Clone the repository**
@@ -151,12 +155,6 @@ Contributions are welcome!
 - Create a new branch (git checkout -b feature/your-feature)
 - Commit your changes
 - Open a pull request
-
-> 📝 **Please Note:**  
-> The **backend** is fully functional and stable.  
-> The **frontend** is still under active development, so some features may be incomplete or in progress.
-
----
 
 ## 📜 License
 
