@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 
 export const mockRequest = (data: Partial<Request> = {}) => {
   return {
@@ -11,6 +11,10 @@ export const mockRequest = (data: Partial<Request> = {}) => {
   };
 };
 
+const { user, ...otherRequestDetails } = mockRequest();
+
+export const mockRequestWithoutUser: Partial<Request> = otherRequestDetails;
+
 export const mockResponse = () => {
   const res: Partial<Response> = {};
   res.status = jest.fn().mockReturnValue(res);
@@ -19,3 +23,5 @@ export const mockResponse = () => {
   res.clearCookie = jest.fn().mockReturnValue(res);
   return res;
 };
+
+export const mockNext = () => jest.fn();
