@@ -5,7 +5,6 @@ import {
   UserResponse,
 } from "../../types/types.js";
 import { createProfileDtoType } from "../../dtos/dtos.js";
-import { Profile, User } from "@prisma/client";
 
 export const fakeUser = {
   id: 1,
