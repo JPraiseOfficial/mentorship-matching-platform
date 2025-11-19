@@ -1,5 +1,6 @@
 import request from "supertest";
-import app from "../../app.js";
+import app from "../../../app.js";
+import { loginAsAdmin } from "../utils/loginUtil.js";
 
 describe("POST /api/auth/login", () => {
   it("logs in a user successfully", async () => {
@@ -32,5 +33,20 @@ describe("POST /api/auth/login", () => {
     expect(res.status).toBe(401);
     expect(res.body).toHaveProperty("message");
     expect(res.body.message).toBe("Invalid email or password");
+  });
+});
+
+describe("POST /api/auth/logout", () => {
+  it("should clear the jwt cookie on logout", async () => {
+    const agent = await loginAsAdmin();
+
+    const res = await agent.post("/api/auth/logout");
+
+    expect(res.statusCode).toBe(200);
+    expect(res.headers["set-cookie"]).toBeDefined();
+
+    const cookie = res.headers["set-cookie"][0];
+    expect(cookie).toMatch(/jwtToken=;/);
+    expect(cookie).toMatch(/Expires=/);
   });
 });
