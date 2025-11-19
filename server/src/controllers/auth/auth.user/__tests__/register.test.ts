@@ -71,10 +71,14 @@ describe("register Auth User Controller", () => {
     });
   });
 
-  it("should handle unexpected errors", async () => {
+  it("should handle unexpected errors and log to console", async () => {
     req.body = registerUser;
     const error = new Error("Unexpected");
     (services.createUser as jest.Mock).mockRejectedValue(error);
+
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
 
     await register(req as Request, res as Response);
 
@@ -82,5 +86,11 @@ describe("register Auth User Controller", () => {
     expect(res.json).toHaveBeenCalledWith({
       message: "Something went wrong. Please, try again later.",
     });
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Error during user registration:",
+      error
+    );
+
+    consoleSpy.mockRestore();
   });
 });

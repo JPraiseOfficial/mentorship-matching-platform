@@ -1,6 +1,7 @@
 import prismaMock from "../../tests/mocks/prismaMock.js";
 import bcryptMock from "../../tests/mocks/bcryptMock.js";
 import jwtMock from "../../tests/mocks/jwtMock.js";
+import { z } from "zod";
 
 jest.mock("../../config/prisma", () => ({
   prisma: prismaMock,
@@ -36,17 +37,11 @@ describe("Auth Controller", () => {
       expect(res.status).toHaveBeenCalledWith(400);
 
       const responseArg = (res.json as jest.Mock).mock.calls[0][0];
-      const keys = Object.keys(responseArg);
+      expect(responseArg).toHaveProperty("errors");
 
-      expect(keys.some((key) => ["email", "password"].includes(key))).toBe(
-        true
-      );
-
-      keys.forEach((key) => {
-        if (["email", "password"].includes(key)) {
-          expect(Array.isArray(responseArg[key])).toBe(true);
-        }
-      });
+      const { errors } = responseArg;
+      const zodError = new z.ZodError([]);
+      expect(errors).toMatchObject(zodError.flatten().fieldErrors);
     });
 
     it("should return 401 when user not found", async () => {
@@ -104,6 +99,29 @@ describe("Auth Controller", () => {
       );
       expect(res.status).toHaveBeenCalledWith(200);
     });
+
+    it("should handle unexpected errors and log to console", async () => {
+      req.body = validCredentials;
+      const error = new Error("DB error");
+      prismaMock.user.findUnique.mockRejectedValue(error);
+
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      await login(req as Request, res as Response);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Something went wrong. Please, try again later.",
+      });
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Error during user login:",
+        error
+      );
+
+      consoleSpy.mockRestore();
+    });
   });
 
   describe("logout", () => {
@@ -115,6 +133,30 @@ describe("Auth Controller", () => {
       expect(res.json).toHaveBeenCalledWith({
         message: "Logout successful",
       });
+    });
+
+    it("should handle unexpected errors and log to console", async () => {
+      const error = new Error("Unexpected error");
+      (res.clearCookie as jest.Mock).mockImplementation(() => {
+        throw error;
+      });
+
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      await logout(req as Request, res as Response);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Something went wrong. Please, try again later.",
+      });
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Error during user logout:",
+        error
+      );
+
+      consoleSpy.mockRestore();
     });
   });
 });

@@ -41,8 +41,13 @@ describe("getUser AuthUser Controller", () => {
     });
   });
 
-  it("should handle unexpected errors", async () => {
-    (services.getUser as jest.Mock).mockRejectedValue(new Error("Unexpected"));
+  it("should handle unexpected errors and log to console", async () => {
+    const error = new Error("Unexpected");
+    (services.getUser as jest.Mock).mockRejectedValue(error);
+
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
 
     await getUser(req as Request, res as Response);
 
@@ -50,5 +55,8 @@ describe("getUser AuthUser Controller", () => {
     expect(res.json).toHaveBeenCalledWith({
       message: "An unexpected error occurred",
     });
+    expect(consoleSpy).toHaveBeenCalledWith("Error fetching user:", error);
+
+    consoleSpy.mockRestore();
   });
 });
