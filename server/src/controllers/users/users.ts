@@ -1,6 +1,9 @@
-import { createProfileDto, getResourceByIdParam } from "../dtos/dtos.js";
-import { NotFoundError, ResourceExistsError } from "../errors/customErrors.js";
-import * as services from "../services/users/users.js";
+import { createProfileDto, getResourceByIdParam } from "../../dtos/dtos.js";
+import {
+  NotFoundError,
+  ResourceExistsError,
+} from "../../errors/customErrors.js";
+import * as services from "../../services/users/users.js";
 import { Request, Response } from "express";
 
 // Function to create user profile
