@@ -23,3 +23,14 @@ export async function loginAsMentor(): Promise<TestAgent> {
 
   return agent;
 }
+
+export async function loginAsMentee(): Promise<TestAgent> {
+  const agent = request.agent(app);
+
+  await agent
+    .post("/api/auth/login")
+    .send({ email: "testmentee@email.com", password: "mentee123" })
+    .expect(200);
+
+  return agent;
+}

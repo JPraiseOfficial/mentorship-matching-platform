@@ -5,7 +5,7 @@ import {
   getAnyProfile,
   getUserProfile,
   updateProfile,
-} from "../controllers/users.js";
+} from "../controllers/users/users.js";
 import { auth } from "../middleware/auth.js";
 import { authorize } from "../middleware/authorise.js";
 
