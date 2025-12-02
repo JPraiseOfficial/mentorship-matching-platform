@@ -11,6 +11,10 @@ The Mentorship Matching Platform is a full-stack web application that helps incu
 
 📖 **API Docs (Swagger):** [View here](https://mentorship-matching-platform-rxo7.onrender.com/api/docs)
 
+> 📝 **Please Note:**  
+> The **backend** is fully functional and stable.  
+> Some features in the **frontend** may be incomplete.
+
 ---
 
 ## ✅ Features
@@ -89,10 +93,6 @@ Full API reference is available in the [API Docs](https://mentorship-matching-pl
 ---
 
 ## ⚙️ Local Setup
-
-> 📝 **Please Note:**  
-> The **backend** is fully functional and stable.  
-> The **frontend** is still under development, so some features may be incomplete or in progress.
 
 Follow these steps to run the project locally.
 
