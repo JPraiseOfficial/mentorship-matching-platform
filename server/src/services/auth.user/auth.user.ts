@@ -6,6 +6,7 @@ import {
   NotFoundError,
   ResourceExistsError,
 } from "../../errors/customErrors.js";
+import { env } from "../../config/env.js";
 
 // This function creates a new user
 export const createUser = async (
@@ -17,8 +18,7 @@ export const createUser = async (
   if (existingUser) {
     throw new ResourceExistsError("Email already exists");
   }
-  const salt = await bcrypt.genSalt(10);
-  const hashpassword = await bcrypt.hash(data.password, salt);
+  const hashpassword = await bcrypt.hash(data.password, env.BCRYPT_SALT_ROUNDS || 10);
   data.password = hashpassword;
   const user = await prisma.user.create({
     data,

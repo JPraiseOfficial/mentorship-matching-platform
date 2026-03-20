@@ -4,3 +4,4 @@ dist/
 .env.test
 prisma/dev.db
 .vscode/
+src/generated
